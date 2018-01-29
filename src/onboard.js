@@ -75,7 +75,7 @@ const remind = () => {
       Object.keys(data[team]).forEach((user) => {
         if (!data[team][user]) {
           message.channel = user;
-          message.text = 'REMIND I am a test message';
+          message.text = 'This is a quick reminder.  At CodeBuddies, our goal is to maintain a safe, helpful &amp; friendly community for everyone, regardless of experience, gender identity &amp; expression, sexual identity &amp; orientation, disability, personal appearance, body size, race, ethnicity, age, religion, nationality, profession, or any other defining characteristic. \n\n\nPlease take the time to *read through &amp; acknowledge* the complete <https://github.com/codebuddiesdotorg/codebuddies/blob/master/CODE_OF_CONDUCT.md|Code of Conduct> before continuing in our community.';
 
           const params = qs.stringify(message);
           const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
