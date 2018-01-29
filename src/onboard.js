@@ -11,7 +11,7 @@ const message = {
   token: process.env.SLACK_TOKEN,
   as_user: true,
   link_names: true,
-  mrkdwn_in: [text, pretext],
+  mrkdwn_in: ['text', 'pretext'],
   text: 'Welcome to CodeBuddies! We\'re glad you\'re here.',
   attachments: JSON.stringify([
     {
