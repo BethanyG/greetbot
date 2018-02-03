@@ -13,8 +13,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  res.send('<h2>The Welcome/Terms of Service app is running</h2> <p>Follow the' +
-  ' instructions in the README to configure the Slack App and your' +
+  res.send('<h2>The Welcome/Code of Conduct app is running</h2> <p>Follow the' +
+  ' instructions in the README to configure this Slack App and your' +
   ' environment variables.</p>');
 });
 
@@ -37,7 +37,7 @@ app.post('/events', (req, res) => {
 
         // `team_join` is fired whenever a new user (incl. a bot) joins the team
         // check if `event.is_restricted == true` to limit to guest accounts
-        if (event.type === 'team_join' && !event.is_bot) {
+        if (event.type === 'team_join' || && !event.is_bot) {
           const { team_id, id } = event.user;
           onboard.initialMessage(team_id, id);
         }
@@ -50,7 +50,38 @@ app.post('/events', (req, res) => {
 });
 
 /*
- * Endpoint to receive events from interactive message on Slack. Checks the
+ * Endpoint to receive welcome slash commands from Slack's API.
+ * Handles:
+ *   - url_verification: Returns challenge token sent when present.
+ *   - event_callback: Confirms verification token & handles welcome `slash commmands`.
+ */
+app.post('/welcome', (req, res) => {
+  switch (req.body.type) {
+    case 'url_verification': {
+      // verify API endpoint by returning challenge if present
+      res.send({ challenge: req.body.challenge });
+      break;
+    }
+    case 'event_callback': {
+      if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
+        const command = req.body.command;
+
+        // `welcome` is fired whenever a user evokes the "slash welcome" command.
+        // check if `event.is_restricted == true` to limit to guest accounts
+        if (command.type === '/welcome' || && !event.is_bot) {
+          const { team_id, user_id } = event.user;
+          onboard.initialMessage(team_id, user_id);
+        }
+        res.sendStatus(200);
+      } else { res.sendStatus(500); }
+      break;
+    }
+    default: { res.sendStatus(500); }
+  }
+});
+
+/*
+ * Endpoint to receive events from interactive welcome message on Slack. Checks the
  * verification token before continuing.
  */
 app.post('/interactive-message', (req, res) => {
