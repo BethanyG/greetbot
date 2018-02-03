@@ -50,33 +50,74 @@ app.post('/events', (req, res) => {
 });
 
 /*
- * Endpoint to receive welcome slash commands from Slack's API.
+ * Endpoint to receive slash commands from Slack's API.
  * Handles:
- *   - url_verification: Returns challenge token sent when present.
- *   - event_callback: Confirms verification token & handles welcome `slash commmands`.
+ *   -`welcome` is fired whenever a user evokes the "slash welcome" command.
+ *   - this function attempts to confirm verification token & then execute various welcome `slash commmand` scenarios.
+ *   - command extentions can be added via case statements.
  */
 app.post('/welcome', (req, res) => {
-  switch (req.body.type) {
-    case 'url_verification': {
-      // verify API endpoint by returning challenge if present
-      res.send({ challenge: req.body.challenge });
+  console.log("Received slash command " + req.body.command + " from " + req.body.user_id + " with " + req.body.text);
+
+  const textPayload = req.body.text;
+  const target_user = textPayload.substring(textPayload.lastIndexOf("@")+1, textPayload.lastIndexOf("|"));
+  const actionRequest = target_user ? textPayload.substring(textPayload.indexOf(''),textPayload.lastIndexOf("<")-1) : req.body.text;
+  const user_id = req.body.user_id;
+
+  console.log("USER ID :: " + user_id);
+  console.log("TARGET USER :: " + target_user);
+  console.log("ACTION :: " + actionRequest);
+  console.log("MESSAGE BODY :: " + textPayload);
+
+  switch (actionRequest) {
+    case 'test': {
+      if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
+        const team_id = req.body.team_id;
+        const slashWelcome = true;
+
+        if (!target_user){
+          onboard.testMessage(team_id, user_id, slashWelcome);
+          res.sendStatus(200);
+        }else{
+          onboard.testMessage(team_id, target_user, slashWelcome);
+          res.sendStatus(200);
+        }
+      }else{ res.sendStatus(500);};
       break;
     }
-    case 'event_callback': {
+    case 'FOO': {
       if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
-        const command = req.body.command;
+        //const command = req.body.text;
+        const team_id = req.body.team_id;
+        const slashWelcome = true
 
-        // `welcome` is fired whenever a user evokes the "slash welcome" command.
-        // check if `event.is_restricted == true` to limit to guest accounts
-        if (command.type === '/welcome' || && !event.is_bot) {
-          const { team_id, user_id } = event.user;
-          onboard.initialMessage(team_id, user_id);
+        if (!target_user){
+          onboard.fooMessage(team_id, user_id, slashWelcome);
+          res.sendStatus(200);
+        }else {
+          onboard.fooMessage(team_id, target_user, slashWelcome);
+          res.sendStatus(200);
         }
-        res.sendStatus(200);
       } else { res.sendStatus(500); }
       break;
     }
-    default: { res.sendStatus(500); }
+    case 'python': {
+      if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
+        //const command = req.body.text;
+        const team_id = req.body.team_id;
+        const slashWelcome = true
+
+        if (!target_user){
+          onboard.pythonMessage(team_id, user_id, slashWelcome);
+          res.sendStatus(200);
+        }else {
+          onboard.pythonMessage(team_id, target_user, slashWelcome);
+          res.sendStatus(200);
+        }
+      } else { res.sendStatus(500); }
+      break;
+    }
+    default: { res.sendStatus(503); }
   }
 });
 
