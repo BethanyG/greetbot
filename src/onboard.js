@@ -6,7 +6,7 @@ const db = new JsonDB('users', true, false);
 
 const postResult = result => console.log(result.data);
 
-// default message - edit to include actual ToS
+// default message - includes Code of Conduct and [Accept] button.
 const message = {
   token: process.env.SLACK_TOKEN,
   as_user: true,
@@ -31,6 +31,59 @@ const message = {
         value: 'accept',
         style: 'primary',
       }],
+    }]),
+};
+
+const python = {
+  token: process.env.SLACK_TOKEN,
+  as_user: true,
+  link_names: true,
+  mrkdwn_in: ['text', 'pretext'],
+  text: '*Getting Started With Python*',
+  attachments: JSON.stringify([
+    {
+      title: '\n_*First Steps*_',
+      text: '\n:snake: <https://docs.python.org/3/tutorial/|Python Software Foundation Offical Tutorial>\n:computer:  <https://www.codecademy.com/learn/learn-python|Learn Python @codecademy>\n:computer:  <https://realpython.com/learn/python-first-steps/|Real Python First Steps>\n:books:  <https://automatetheboringstuff.com/|Automate the Boring Stuff With Python>\n:books:  <https://learnpythonthehardway.org/|Learn Python the Hard Way>\n:mortar_board:  <https://www.py4e.com/|Python for Everybody>\n:mortar_board:  <https://training.talkpython.fm/|Talk Python Training>',
+      color: '#edc63b',
+    },
+    {
+      title: '\n_*Bigger Bites*_',
+      text: '\n:snake:  <https://docs.python.org/3/howto/index.html|Python Software Foundation HowTos>\n:snake:  <https://docs.python.org/3/howto/functional.html|Functional Programming in Python>\n:snake:  <https://www.synopsys.com/blogs/software-security/understanding-python-bytecode/|Understanding Pythons Byte Code>\n:snake:  <http://www.diveintopython3.net/where-to-go-from-here.html|Python3 Where to Go from Here>\n:computer:  <https://www.youtube.com/playlist?list=PLQVvvaa0QuDfju7ADVp5W1GF9jVhjbX-_|sentdex Intermediate Python>\n:books:  <http://python-3-patterns-idioms-test.readthedocs.io/en/latest/index.html|Python3 Patterns, Recipes & Idioms>\n:books:  <https://www.amazon.com/Python-Cookbook-Third-David-Beazley/dp/1449340377|Python Cookbook 3rd Edition, David Beazley>\n:books:  <https://www.amazon.com/Fluent-Python-Concise-Effective-Programming/dp/1491946008/ref=la_B00O6IY1S4_1_1?s=books&ie=UTF8&qid=1517656222&sr=1-1|Fluent Python, Luciano Ramalho>\n:mortar_board:  <https://www.edx.org/course/introduction-computer-science-mitx-6-00-1x-11|MIT Intro to CS & Programming Using Python>\n:mortar_board:  <https://www.edx.org/course/introduction-computational-thinking-data-mitx-6-00-2x-6|MIT Intro to Computational Thinking & Data Science>',
+      color: '#3060f0',
+    },
+    {
+      title: '\n_*Projects &amp; Games*_',
+      text: '\n:snake:   <https://coolpythoncodes.com/python-turtle/|Cool Python Codes Turtle Tutorial>\n:computer:  <http://newcoder.io/|New Coder - 5 Life Jackets to Throw to the New Coder>\n:computer:  <http://programarcadegames.com/|Program Arcade Games with Python & Pygame>\n:computer:  <https://github.com/norvig/pytudes|Peter Norvigs pytudes>\n:books: <http://inventwithpython.com/|Al Sweigerts Books for Free online>\n:mortar_board:<http://simeonfranklin.com/talk/pyglet/slides.html#title-slide|Simeon Franklin "Basic Games with Python">\n:mortar_board:  <https://www.youtube.com/playlist?list=PLQVvvaa0QuDdLkP8MrOXLe_rKuf6r80KO|sentdex on Game Development in Python>',
+      color: '#edc63b',
+    },
+    {
+      title: '\n_*WebDev Focused*_',
+      text: '\n:computer:<https://tutorial.djangogirls.org/en/|Django Girls Tutorial>\n:computer:<https://docs.djangoproject.com/en/2.0/intro/tutorial01/|Django Projects Offical Tutorial>\n:computer: <http://flask.pocoo.org/docs/0.12/tutorial/|Flask Projects Offical Tutorial>\n:computer:  <https://www.pythonanywhere.com/|PythonAnywhere: Host Web Applications in the Cloud>\n:computer:  <https://devcenter.heroku.com/categories/python|Heroku: Hosted Python>\n:books:  <https://www.fullstackpython.com/flask.html|Full Stack Python>\n:books:  <http://www.tangowithdjango.com/|Tango with Django>\n:books:  <https://www.twoscoopspress.com/products/two-scoops-of-django-1-11|Two Scoops of Django>\n:mortar_board:  <https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world|Flask Mega Tutorial>',
+      color: '#3060f0',
+    },
+    {
+      title: '\n_*Tools &amp; Msc.*_',
+      text: '\n:snake:  <https://www.python.org/doc/essays/|Essays &amp; Writing from Pythons Creator>\n:computer:  <http://pythontutor.com/|Python Tutor: Visualize Your Python Code>\n:computer:  <https://teletype.atom.io/#getting-started|Atom Code Editor with Teletype Collaboration>\n:books:  <https://pythonpedia.com/applications/database-access.html|The Python Pedia>\n:books:  <http://docs.python-guide.org/en/latest/intro/learning/|Hitchhikers Guide to Python Learning Compendium>\n:mortar_board:  <https://www.youtube.com/channel/UCbNpPBMvCHr-TeJkkezog7Q|David Beazley>\n:mortar_board:  <https://www.youtube.com/results?sp=CAI%253D&search_query=raymond+hettinger+python|Raymond Hettinger>\n:mortar_board:  <https://www.youtube.com/user/sentdex/featured|sentdex>',
+      color: '#edc63b',
+    }]),
+};
+
+const foo = {
+  token: process.env.SLACK_TOKEN,
+  as_user: true,
+  link_names: true,
+  mrkdwn_in: ['text', 'pretext'],
+  text: 'THIS IS THE FOO TEST',
+  attachments: JSON.stringify([
+    {
+      title: 'Foo!',
+      text: 'Little bunny Foo Foo\nHopping through the forest\nScooping up the field mice\nAnd boppin\' \'em on the head!',
+      color: '#74c8ed',
+    },
+    {
+      title: 'Fairy',
+      text: 'Down came the good fairy\n And the good fairy said:\n \"Little bunny Foo Foo, I don\'t wanna see you\nScooping up the field mice and boppin\' \'em on the head!\nI\'m gonna give you three chances,\nThen I\'m gonna turn you into a goon!\"',
+      color: '#3060f0',
     }]),
 };
 
@@ -82,4 +135,35 @@ const remind = () => {
   } catch (error) { console.error(error); }
 };
 
-module.exports = { initialMessage, accept, remind };
+/*
+ * Message actions for specific `/welcome` extention commands e.g. `/weclome python` or `/welcome webdev`
+ * Corresponding message text is listed in the messages section of this file.
+ */
+const fooMessage = (teamId, userId, slashWelcome) => {
+    // send the foo message as a DM to the user
+    foo.channel = userId;
+    const params = qs.stringify(foo);
+    const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
+    sendMessage.then(postResult);
+  };
+
+
+const pythonMessage = (teamId, userId, slashWelcome) => {
+    // send the foo message as a DM to the user
+    python.channel = userId;
+    const params = qs.stringify(python);
+    const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
+    sendMessage.then(postResult);
+  };
+
+
+const testMessage = (teamId, userId, slashWelcome) => {
+    // send the default message as a test DM to the requestor
+    message.channel = userId;
+    const params = qs.stringify(message);
+    const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
+    sendMessage.then(postResult);
+  };
+
+
+module.exports = { testMessage, fooMessage, pythonMessage, initialMessage, accept, remind };
