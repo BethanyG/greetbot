@@ -1,10 +1,10 @@
 require('dotenv').config();
 
-const express = require('express');
+const app = require('express')();
 const bodyParser = require('body-parser');
 const onboard = require('./onboard');
 
-const app = express();
+//const app = express();
 
 /*
  * parse application/x-www-form-urlencoded && application/json
