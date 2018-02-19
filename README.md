@@ -5,6 +5,8 @@
 4. Pull that branch to Glitch
 5. Go back and make any changes you'd like -- and then save/push those changes back to Github on the newly-made branch
 
+Note: do not make changes or make PRs to the `master` branch.
+
 
 # Slack Terms of Service / Welcome message template
 
