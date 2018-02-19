@@ -1,10 +1,10 @@
 require('dotenv').config();
 
-const express = require('express');
+const app = require('express')();
 const bodyParser = require('body-parser');
 const onboard = require('./onboard');
 
-const app = express();
+//const app = express();
 
 /*
  * parse application/x-www-form-urlencoded && application/json
@@ -37,7 +37,7 @@ app.post('/events', (req, res) => {
 
         // `team_join` is fired whenever a new user (incl. a bot) joins the team
         // check if `event.is_restricted == true` to limit to guest accounts
-        if (event.type === 'team_join' || && !event.is_bot) {
+        if (event.type === 'team_join' || !event.is_bot) {
           const { team_id, id } = event.user;
           onboard.initialMessage(team_id, id);
         }
