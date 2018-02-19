@@ -1,3 +1,11 @@
+# How to contribute to this repository:
+1. Clone the repo (specifically the bg_working branch)
+2. Make a branch
+3. Push that branch back to Github
+4. Pull that branch to Glitch
+5. Go back and make any changes you'd like -- and then save/push those changes back to Github on the newly-made branch
+
+
 # Slack Terms of Service / Welcome message template
 
 Sample Slack app that presents a Terms of Service (or any other message) when a new user joins a team.
