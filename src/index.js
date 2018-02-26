@@ -63,61 +63,41 @@ app.post('/welcome', (req, res) => {
   const target_user = textPayload.substring(textPayload.lastIndexOf("@")+1, textPayload.lastIndexOf("|"));
   const actionRequest = target_user ? textPayload.substring(textPayload.indexOf(''),textPayload.lastIndexOf("<")-1) : req.body.text;
   const user_id = req.body.user_id;
+  const team_id = req.body.team_id;
+  const slashWelcome = true;
+  const channel = target_user ? target_user : user_id;
 
   console.log("USER ID :: " + user_id);
   console.log("TARGET USER :: " + target_user);
   console.log("ACTION :: " + actionRequest);
   console.log("MESSAGE BODY :: " + textPayload);
+  console.log("CHANNEL :: ", channel);
 
-  switch (actionRequest) {
-    case 'test': {
-      if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
-        const team_id = req.body.team_id;
-        const slashWelcome = true;
-
-        if (!target_user){
-          onboard.testMessage(team_id, user_id, slashWelcome);
-          res.sendStatus(200);
-        }else{
-          onboard.testMessage(team_id, target_user, slashWelcome);
-          res.sendStatus(200);
-        }
-      }else{ res.sendStatus(500);};
-      break;
+  if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
+    switch (actionRequest) {
+      case 'test': {
+        onboard.testMessage(team_id, channel, slashWelcome);
+        res.sendStatus(200);
+        break;
+      }
+      case 'FOO': {
+        onboard.fooMessage(team_id, channel, slashWelcome);
+        res.sendStatus(200);
+        break;
+      }
+      case 'python': {
+        onboard.pythonMessage(team_id, channel, slashWelcome);
+        res.sendStatus(200);
+        break;
+      }
+      default: {
+        onboard.helpMessage(team_id, channel);
+        res.sendStatus(200);
+        break;
+      }
     }
-    case 'FOO': {
-      if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
-        //const command = req.body.text;
-        const team_id = req.body.team_id;
-        const slashWelcome = true
-
-        if (!target_user){
-          onboard.fooMessage(team_id, user_id, slashWelcome);
-          res.sendStatus(200);
-        }else {
-          onboard.fooMessage(team_id, target_user, slashWelcome);
-          res.sendStatus(200);
-        }
-      } else { res.sendStatus(500); }
-      break;
-    }
-    case 'python': {
-      if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
-        //const command = req.body.text;
-        const team_id = req.body.team_id;
-        const slashWelcome = true
-
-        if (!target_user){
-          onboard.pythonMessage(team_id, user_id, slashWelcome);
-          res.sendStatus(200);
-        }else {
-          onboard.pythonMessage(team_id, target_user, slashWelcome);
-          res.sendStatus(200);
-        }
-      } else { res.sendStatus(500); }
-      break;
-    }
-    default: { res.sendStatus(503); }
+  } else {
+    res.sendStatus(500);
   }
 });
 

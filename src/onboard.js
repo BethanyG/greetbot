@@ -87,6 +87,23 @@ const foo = {
     }]),
 };
 
+const help = {
+  token: process.env.SLACK_TOKEN,
+  as_user: true,
+  link_names: true,
+  mrkdwn_in: ['text', 'pretext'],
+  text: '*How to use /welcome*',
+  attachments: JSON.stringify([
+    {
+      title: '/welcome is a command to greet users with the CB welcome message & Code of Conduct.',
+      text: [ '* /welcome test: Sends a test welcome message as a DM to the user who typed it.',
+              '* /welcome [resource name]: Sends "getting started in [resource x]" message as a DM to the user who typed it.',
+              '* /welcome [command] @username: Sends the result of the command (test, resource, etc.) as a DM to the user specified.'
+            ].join('\n'),
+      color: '#74c8ed',
+    }]),
+};
+
 const initialMessage = (teamId, userId) => {
   let data = false;
   // try fetch team/user pair. This will throw an error if nothing exists in the db
@@ -165,5 +182,11 @@ const testMessage = (teamId, userId, slashWelcome) => {
     sendMessage.then(postResult);
   };
 
+const helpMessage = (teamId, userId) => {
+  help.channel = userId;
+  const params = qs.stringify(help);
+  const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
+  sendMessage.then(postResult);
+}
 
-module.exports = { testMessage, fooMessage, pythonMessage, initialMessage, accept, remind };
+module.exports = { testMessage, fooMessage, pythonMessage, initialMessage, accept, remind, helpMessage };
