@@ -25,17 +25,16 @@ const parsePayload = (payload) => {
 const welcome = (req, res) => {
   console.log("Received slash command " + req.body.command + " from " + req.body.user_id + " with " + req.body.text);
 
-  const textPayload = req.body.text;
+  const { user_id, text:textPayload } = req.body;
   const { target_user, channel_name, actionRequest } = parsePayload(textPayload);
-  const { user_id, team_id } = req.body;
   const user = target_user ? target_user : user_id;
 
-  console.log("USER ID :: " + user_id);
-  console.log("TARGET USER :: " + target_user);
-  console.log("ACTION :: " + actionRequest);
-  console.log("MESSAGE BODY :: " + textPayload);
-  console.log("USER :: ", user);
-  console.log("CHANNEL NAME :: ", channel_name);
+  console.log(`USER ID :: ${user_id}`);
+  console.log(`TARGET USER :: ${target_user}`);
+  console.log(`ACTION :: ${actionRequest}`);
+  console.log(`MESSAGE BODY :: ${textPayload}`);
+  console.log(`USER :: ${user}`);
+  console.log(`CHANNEL NAME :: ${channel_name}`);
 
   if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
      switch (actionRequest) {
