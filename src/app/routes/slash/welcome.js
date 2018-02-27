@@ -1,7 +1,7 @@
 const axios = require('axios');
 const qs = require('querystring');
 const postResult = result => console.log(result.data);
-const message = require('./welcome').message;
+const message = require('./welcome/message').message;
 
 const welcome = (req, res) => {
   console.log("Received slash command " + req.body.command + " from " + req.body.user_id + " with " + req.body.text);
