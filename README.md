@@ -1,4 +1,4 @@
-# How to contribute to this repository:
+# Please contribute to this repository through CodeBuddies (https://github.com/codebuddies):
 1. Ask for an invite to our test Slack team & to our Glitch.com project account if you'd like to test/work in our staging environment.
 2. Clone this repo (specifically the **development** branch)
 2. Make a branch off **development** for your changes.
