@@ -18,4 +18,4 @@ const message = {
         }]),
     };
 
-module.exports = { message: message };
+module.exports = { message };
