@@ -4,13 +4,13 @@
   "version": "1.0.0",
   "description": "Sample Slack app that uses the Events API and interactive messages to send new users a Terms of Service or welcome message",
   "engines": {
-    "node": ">= 6.9.0"
+    "node": ">= 6.13.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js"
   },
-  "author": "Sachin Ranchod <sranchod@slack-corp.com>",
+  "author": "CodeBuddies <codebuddiesdotorg@gmail.com>",
   "dependencies": {
     "axios": "^0.16.0",
     "body-parser": "^1.17.1",

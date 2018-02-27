@@ -1,12 +1,29 @@
-# Slack Terms of Service / Welcome message template
+# How to contribute to this repository:
+1. Ask for an invite to our test Slack team & to our Glitch.com project account if you'd like to test/work in our staging environment.
+2. Clone this repo (specifically the **development** branch)
+2. Make a branch off **development** for your changes.
+3. Push your branch back to Github.
+4. Pull that branch to Glitch.com for viewing with our Test Slack team.
+5. As an alternative, use **NGROK (https://ngrok.com/)** with your own Slack Team for development. (see the directions below, in addition to https://api.slack.com/slack-apps for how to set up and install a custom slack app for your team account).
+5. Make your changes & then save/push those changes back to Github on your branch.
+6. Open a pull request to merge your proposed changes back into **devlopment**.  Please note any feature or bug numbers addressed & any other important notes in your pull request comments.
 
-Sample Slack app that presents a Terms of Service (or any other message) when a new user joins a team.
+**Note: do not make changes or make PRs to the `master` branch.**
 
-The user can accept the Terms of Service using message buttons. If a user has been presented with the Terms before and they haven't accepted, a background job can send them a reminder after a specific period of time. Eventually you can use the SCIM API to disable the user's account.
 
-![term-of-service](https://user-images.githubusercontent.com/700173/27111030-42359a02-5062-11e7-9750-385ae9ca084e.png)
+# CodeBuddies Slack Application
 
-## Setup
+Adapted from https://glitch.com/~slack-terms-of-service-blueprint.
+
+CodeBuddies Slack app that presents an Welcome message when a new user joins the Slack Team.
+
+The user can accept our Code of Conduct using message buttons. If a user has been presented with the Code before & they haven't accepted, a background job can send them a reminder DM after a specific period of time. Eventually you can use the SCIM API to disable the user's account.
+
+Additionally, the same welcome message can be sent as a `/welcome` command.
+
+Other (upcoming) functionality will include a `/resources` command to send resource links to users, & automatic channel welcomes.
+
+## Setup for Running with your Own Slack Team
 
 #### Create a Slack app
 
@@ -15,10 +32,9 @@ The user can accept the Terms of Service using message buttons. If a user has be
 1. Navigate to the Install App page and install the app
 1. Copy the `xoxb-` token after the installation process is complete
 
-#### Run locally or [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/slack-terms-of-service-blueprint)
+#### Run locally
 1. Get the code
-    * Either clone this repo and run `npm install`
-    * Or visit https://glitch.com/edit/#!/remix/slack-terms-of-service-blueprint
+    * Either clone this repo and run `npm install`, or set it up on Glitch.com
 1. Set the following environment variables to `.env` (see `.env.sample`):
     * `SLACK_TOKEN`: Your app's `xoxb-` token (available on the Install App page)
     * `SLACK_VERIFICATION_TOKEN`: Your app's Verification Token (available on the Basic Information page)
