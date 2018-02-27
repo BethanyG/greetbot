@@ -4,8 +4,7 @@ const app = require('express')();
 const bodyParser = require('body-parser');
 const initalEvent = require('./app/routes/events/initial');
 const slashWelcome = require('./app/routes/slash/welcome');
-const initalResponse = require('./app/routes/interactive/initialRefactor');
-
+const initalResponse = require('./app/routes/interactive/initialResponse');
 
 //const app = express();
 

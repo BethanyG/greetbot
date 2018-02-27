@@ -1,29 +1,46 @@
 const axios = require('axios');
 const qs = require('querystring');
 const postResult = result => console.log(result.data);
-const message = require('./welcome/message').message;
+const messages = require('./welcome/message');
+const message = messages.message;
+const help = messages.help;
+
+const parsePayload = (payload) => {
+  const textPayload = payload.trim();
+  const idxUsername = textPayload.lastIndexOf("@");
+  const idxChannelName = textPayload.lastIndexOf("#");
+
+  const target_user = idxUsername >= 0 ? textPayload.substring(idxUsername+1) : undefined;
+  const channel_name = idxChannelName >= 0 ? textPayload.substring(idxChannelName) : undefined;
+
+  let actionRequest = textPayload;
+  if (target_user) {
+    actionRequest = textPayload.substring(0, idxUsername).trim();
+  } else if (channel_name) {
+    actionRequest =textPayload.substring(0, idxChannelName).trim();
+  }
+  return { target_user, channel_name, actionRequest };
+}
 
 const welcome = (req, res) => {
   console.log("Received slash command " + req.body.command + " from " + req.body.user_id + " with " + req.body.text);
 
   const textPayload = req.body.text;
-  const target_user = textPayload.substring(textPayload.lastIndexOf("@")+1, textPayload.lastIndexOf("|"));
-  const actionRequest = target_user ? textPayload.substring(textPayload.indexOf(''),textPayload.lastIndexOf("<")-1) : req.body.text;
-  const user_id = req.body.user_id;
-  const team_id = req.body.team_id;
-  const slashWelcome = true;
-  const channel = target_user ? target_user : user_id;
+  const { target_user, channel_name, actionRequest } = parsePayload(textPayload);
+  const { user_id, team_id } = req.body;
+  const user = target_user ? target_user : user_id;
 
   console.log("USER ID :: " + user_id);
   console.log("TARGET USER :: " + target_user);
   console.log("ACTION :: " + actionRequest);
   console.log("MESSAGE BODY :: " + textPayload);
-  console.log("CHANNEL :: ", channel);
+  console.log("USER :: ", user);
+  console.log("CHANNEL NAME :: ", channel_name);
 
   if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
      switch (actionRequest) {
        case 'test': {
-         testMessage(team_id, channel);
+         welcomeMessage(message, user);
          res.sendStatus(200);
          break;
        }
@@ -37,8 +54,13 @@ const welcome = (req, res) => {
          res.sendStatus(200);
          break;
        }*/
+       case 'post': {
+         channelMessage(message, channel_name);
+         res.sendStatus(200);
+         break;
+       }
        default: {
-         helpMessage(team_id, channel);
+         welcomeMessage(help, user);
          res.sendStatus(200);
          break;
        }
@@ -46,36 +68,19 @@ const welcome = (req, res) => {
   } else { res.sendStatus(503); }
 };
 
-const testMessage = (teamId, userId) => {
-    // send the default message as a test DM to the requestor
-    message.channel = userId;
-    const params = qs.stringify(message);
-    const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
-    sendMessage.then(postResult);
-  };
-
-const helpMessage = (teamId, userId) => {
-   help.channel = userId;
-   const params = qs.stringify(help);
+const welcomeMessage = (message, userId) => {
+   message.channel = userId;
+   const params = qs.stringify(message);
    const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
    sendMessage.then(postResult);
  }
 
-const help = {
-     token: process.env.SLACK_TOKEN,
-     as_user: true,
-     link_names: true,
-     mrkdwn_in: ['text', 'pretext'],
-     text: '*How to use /welcome*',
-     attachments: JSON.stringify([
-       {
-         title: '/welcome is a command to greet users with the CB welcome message & Code of Conduct.',
-         text: [ '* /welcome `test`: Sends a test welcome message as a DM to the user who typed it.',
-                 '* /welcome `[resource name]`: Sends _"getting started in [resource x]"_ message as a DM to the user who typed it.',
-                 '* /welcome `[command] @username`: Sends the result of the command (_test, resource, etc._) as a DM to the user specified.'
-               ].join('\n'),
-         color: '#74c8ed',
-       }]),
-   };
+ const channelMessage = (message, channel_name = '#start_here') => {
+   // send message to public channel
+   message.channel = channel_name;
+   const params = qs.stringify(message);
+   const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
+   sendMessage.then(postResult);
+ };
 
 module.exports = { welcome };
