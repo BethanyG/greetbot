@@ -66,7 +66,7 @@ const findDmChannel = (userId, default_channel_id) => {
   const dmRequest = {token: process.env.SLACK_TOKEN, user: userId };
   const params = qs.stringify(dmRequest);
   const sendDmRequest = axios.post('https://slack.com/api/im.open', params);
-  sendDmRequest.then(postResult);
+  sendDmRequest.then(result => { console.log(result); return result; });
   
   
   //sendDmRequest.then(function(res){

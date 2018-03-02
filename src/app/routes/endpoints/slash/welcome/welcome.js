@@ -7,9 +7,11 @@ const incomingParser = require('./../../../../util/incomingParser.js');
 
 
 const welcome = (req, res) => {
+  console.log(incomingParser);
   console.log("Received slash command " + req.body.command + " from " + req.body.user_id + " with " + req.body.text);
-
+  
   const recipients = incomingParser.parsePayload(req);
+  console.log("request: " + req);
   console.log(recipients);
 
   console.log(`USER ID :: ${req.body.user_id}`);
