@@ -1,4 +1,4 @@
-const accept = require('./../../routes/events/initial');
+const accept = require('routes/endpoints/events/initial');
 
 const welcomeResponse = (req, res) => {
     const { token, user, team } = JSON.parse(req.body.payload);

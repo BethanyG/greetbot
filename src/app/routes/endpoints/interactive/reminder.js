@@ -5,7 +5,7 @@ const JsonDB = require('node-json-db');
 const db = new JsonDB('users', true, false);
 
 const postResult = result => console.log(result.data);
-const message = require('../slash/welcomeData');
+const message = require('routes/endpoints/slash/welcomeData');
 
 
 // find all the users who've been presented the ToS and send them a reminder to accept.
