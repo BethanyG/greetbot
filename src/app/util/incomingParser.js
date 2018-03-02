@@ -16,7 +16,6 @@ const parsePayload = async (req) => {
   } else {
     target_user_id = ''
   }
-  // const target_user_id = textPayload.substring(textPayload.lastIndexOf("@")+1, textPayload.indexOf("|"));
 
   console.log(target_user_id);
   //public/private channel_id typed with the slash command (if any).
@@ -45,7 +44,7 @@ const parsePayload = async (req) => {
 
 
     //If there isIn  a target user and channel, send both.
-    // channel=yes AND DM=yes....so two seperate messages here?!??!)
+    // channel=yes AND DM=yes....so two seperate messages.
     if (parsedList.target_channel_id && parsedList.target_user_id) {
     
       const target_user_dm_chan = await findDmChannel(target_user_id);
@@ -65,7 +64,7 @@ const parsePayload = async (req) => {
     }
 
     //send default_channel_id
-    //message will be a DM uder Applications as the bot_user
+    //message will be a DM under Applications as the bot_user
     else {
       
       return { target_user_id: '', target_channel_id: default_user_id, action: action_request, payload: textPayload }
@@ -81,15 +80,6 @@ const findDmChannel = async (userId) => {
                .catch(error => console.log(error));
   
   return req_id;
-  //sendDmRequest.then(function(res){
-   // console.log(res);
-    //if (res.ok === true) {
-     // return res.channel.id
-    //} else {
-      //If something goes wrong, we'll default to the bot_user DM channel.
-     // return default_channel_id
-    //}
-  //});
 };
 
 module.exports = { parsePayload };
