@@ -17,7 +17,7 @@ const parsePayload = (req) => {
 
   //The command word (if any) typed.
   //If there's no legitimate command (or if it's blank), sent Msg should default to "help".
-  const action_request = target_user_id || channel_id ? textPayload.substring(textPayload.indexOf(''),textPayload.IndexOf("<")-1) : req.body.text;
+  const action_request = target_user_id || target_channel_id ? textPayload.substring(textPayload.indexOf(''),textPayload.IndexOf("<")-1) : req.body.text;
 
   //user_id of the user who typed the slash command
   //If no other info is specified, the Msg should go back to this user on the DM channel_id.
@@ -27,7 +27,7 @@ const parsePayload = (req) => {
   //Msgs sent here will come from the bot_user as a DM.
   const default_channel_id = 'D8ZU7NZPE'
 
-  const parsedList = { team_id, target_user, target_channel_id, actionRequest, default_user_id, default_channel_id }
+  const parsedList = { team_id, target_user_id, target_channel_id, action_request, default_user_id, default_channel_id }
 
 
   switch (parsedList){
@@ -66,7 +66,7 @@ const findDmChannel = (userId) => {
   const sendDmRequest = axios.post('https://slack.com/im.open', dmRequest);
 
   sendDmRequest.then(function(res){
-    if res.ok === true {
+    if (res.ok === true) {
       return res.channel.id
     } else {
       //If something goes wrong, we'll default to the bot_user DM channel.
