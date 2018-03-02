@@ -10,13 +10,20 @@ const parsePayload = async (req) => {
   const team_id = req.body.team_id;
 
   //user_id of the @<user_name> typed with the slash command (if any).
-  const target_user_id = textPayload.substring(textPayload.lastIndexOf("@")+1, textPayload.lastIndexOf("|"));
+  let target_user_id;
+  if (textPayload.indexOf("@") > -1) {
+    target_user_id = textPayload.match(/@(.*?)\|/)[1]
+  } else {
+    target_user_id = ''
+  }
+  // const target_user_id = textPayload.substring(textPayload.lastIndexOf("@")+1, textPayload.indexOf("|"));
 
+  console.log(target_user_id);
   //public/private channel_id typed with the slash command (if any).
   //Msgs sent here will be in-channel, and the bot_user needs permissions/join for it.
   let target_channel_id;
-  if (textPayload.lastIndexOf("#") > -1) {
-    target_channel_id = textPayload.substring(textPayload.lastIndexOf("#")+1, textPayload.indexOf("|"));
+  if (textPayload.indexOf("#") > -1) {
+    target_channel_id = textPayload.match(/#(.*?)\|/)[1]
   } else {
     target_channel_id = '';
   }
@@ -41,8 +48,8 @@ const parsePayload = async (req) => {
     // channel=yes AND DM=yes....so two seperate messages here?!??!)
     if (parsedList.target_channel_id && parsedList.target_user_id) {
     
-      const target_user_dm_chan = findDmChannel(target_user_id);
-      return { target_user_id: target_user_dm_chan, target_channel_id: target_channel_id, action: action_request, payload: textPayload }
+      const target_user_dm_chan = await findDmChannel(target_user_id);
+      return { target_user_id: target_user_dm_chan, target_channel_id: parsedList.target_channel_id, action: action_request, payload: textPayload }
     }
 
     //If there is a target user only, send target_user_dm_chan and omit the default_channel_id
