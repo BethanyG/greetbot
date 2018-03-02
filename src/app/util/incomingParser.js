@@ -16,7 +16,7 @@ const parsePayload = (req) => {
   //public/private channel_id typed with the slash command (if any).
   //Msgs sent here will be in-channel, and the bot_user needs permissions/join for it.
   const target_channel_id = textPayload.substring(textPayload.lastIndexOf("#")+1, textPayload.indexOf("|"))
-
+  
   //The command word (if any) typed.
   //If there's no legitimate command (or if it's blank), sent Msg should default to "help".
   const action_request = target_user_id || target_channel_id ? textPayload.substring(textPayload.indexOf(''),textPayload.indexOf("<")-1) : req.body.text;
@@ -51,12 +51,14 @@ const parsePayload = (req) => {
 
     //If there is a target channel only, send tartget_channel_id and omit default_user_id
     case (target_channel_id && !target_user_id): {
+      
       return { target_user_id: '', target_channel_id: target_channel_id, action: action_request, payload: textPayload }
     }
 
     //send default_channel_id
     //message will be a DM uder Applications as the bot_user
     default: {
+      
       return { target_user_id: '', target_channel_id: default_user_id, action: action_request, payload: textPayload }
     }
   }
