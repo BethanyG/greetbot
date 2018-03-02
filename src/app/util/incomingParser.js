@@ -33,7 +33,7 @@ const parsePayload = (req) => {
 
 
   switch (parsedList){
-    //If there is a target user and channel, send both.
+    //If there isIn  a target user and channel, send both.
     // channel=yes AND DM=yes....so two seperate messages here?!??!)
     case (target_channel_id && target_user_id): {
 
