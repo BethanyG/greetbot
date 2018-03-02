@@ -1,15 +1,15 @@
 {
-  "name": "slack-tos-example",
+  "name": "greetbot",
   "private": true,
-  "version": "1.0.0",
-  "description": "Sample Slack app that uses the Events API and interactive messages to send new users a Terms of Service or welcome message",
+  "version": "0.0.1",
+  "description": "Greetbot is a Slackbot built for use with Codebuddies to help welcome and onboard new members and provide valuable coding resources.",
   "engines": {
     "node": "8.x"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "start-dev": "nodemon src/index.js"
   },
   "author": "CodeBuddies <codebuddiesdotorg@gmail.com>",
   "dependencies": {
