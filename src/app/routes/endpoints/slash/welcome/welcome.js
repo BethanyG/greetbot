@@ -6,10 +6,10 @@ const helpData = require('./../../../data/slash/welcome/welcomeHelp.js').help;
 const incomingParser = require('./../../../../util/incomingParser.js');
 
 
-const welcome = (req, res) => {
+const welcome = async (req, res) => {
   console.log("Received slash command " + req.body.command + " from " + req.body.user_id + " with " + req.body.text);
 
-  const recipients = incomingParser.parsePayload(req);
+  const recipients = await incomingParser.parsePayload(req);
 
   console.log(`USER ID :: ${req.body.user_id}`);
   console.log(`TARGET USER :: ${recipients.target_user_id}`);

@@ -3,7 +3,7 @@ const postResult = result => console.log(result.data);
 const qs = require('querystring');
 
 
-const parsePayload = (req) => {
+const parsePayload = async (req) => {
   const textPayload = req.body.text.trim();
 
   //team_id of the Slack team where the app is installed.  Used for Auth.
@@ -14,7 +14,7 @@ const parsePayload = (req) => {
 
   //public/private channel_id typed with the slash command (if any).
   //Msgs sent here will be in-channel, and the bot_user needs permissions/join for it.
-  var target_channel_id;
+  let target_channel_id;
   if (textPayload.lastIndexOf("#") > -1) {
     target_channel_id = textPayload.substring(textPayload.lastIndexOf("#")+1, textPayload.indexOf("|"));
   } else {
@@ -47,7 +47,7 @@ const parsePayload = (req) => {
 
     //If there is a target user only, send target_user_dm_chan and omit the default_channel_id
     else if (parsedList.target_user_id && !parsedList.target_channel_id) {
-      const target_user_dm_chan = findDmChannel(parsedList.target_user_id);
+      const target_user_dm_chan = await findDmChannel(parsedList.target_user_id);
       
       console.log(`target user dm: ${target_user_dm_chan}`);
       return { target_user_id: target_user_dm_chan, target_channel_id: '', action: action_request, payload: textPayload }
@@ -68,11 +68,12 @@ const parsePayload = (req) => {
 };
 
 
-const findDmChannel = (userId) => {
+const findDmChannel = async (userId) => {
   const dmRequest = {token: process.env.SLACK_TOKEN, user: userId };
   const params = qs.stringify(dmRequest);
   const sendDmRequest = axios.post('https://slack.com/api/im.open', params);
-  sendDmRequest.then(result => { console.log(result.data.channel.id); return result.data.channel.id; });
+  sendDmRequest.then(result => { console.log(result.data.channel.id); return result.data.channel.id; })
+               .catch(error => console.log(error));
   
   
   //sendDmRequest.then(function(res){
