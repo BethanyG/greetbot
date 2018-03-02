@@ -48,7 +48,8 @@ const parsePayload = (req) => {
 
     //If there is a target user only, send target_user_dm_chan and omit the default_channel_id
     else if (parsedList.target_user_id && !parsedList.target_channel_id) {
-      const target_user_dm_chan = findDmChannel(target_user_id);
+      const target_user_dm_chan = findDmChannel(parsedList.target_user_id);
+
       console.log(`target user dm: ${target_user_dm_chan}`);
       return { target_user_id: target_user_dm_chan, target_channel_id: '', action: action_request, payload: textPayload }
     }
@@ -69,6 +70,7 @@ const parsePayload = (req) => {
 
 
 const findDmChannel = (userId) => {
+  console.log(userId)
   const dmRequest = {token: process.env.SLACK_TOKEN, user: userId };
   const params = qs.stringify(dmRequest);
   const sendDmRequest = axios.post('https://slack.com/api/im.open', params);
