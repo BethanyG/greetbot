@@ -32,36 +32,34 @@ const parsePayload = (req) => {
   const parsedList = { team_id, target_user_id, target_channel_id, action_request, default_user_id, default_channel_id }
 
 
-  switch (parsedList){
     //If there isIn  a target user and channel, send both.
     // channel=yes AND DM=yes....so two seperate messages here?!??!)
-    case (target_channel_id && target_user_id): {
-
+    if (parsedList.target_channel_id && parsedList.target_user_id) {
+    
 
       const target_user_dm_chan = findDmChannel(target_user_id, default_channel_id);
       return { target_user_id: target_user_dm_chan, target_channel_id: target_channel_id, action: action_request, payload: textPayload }
     }
 
     //If there is a target user only, send target_user_dm_chan and omit the default_channel_id
-    case (target_user_id && !target_channel_id): {
-
+    else if (parsedList.target_user_id && !parsedList.target_channel_id) {
+      
       const target_user_dm_chan = findDmChannel(target_user_id, default_channel_id);
       return { target_user_id: target_user_dm_chan, target_channel_id: '', action: action_request, payload: textPayload }
     }
 
     //If there is a target channel only, send tartget_channel_id and omit default_user_id
-    case (target_channel_id && !target_user_id): {
+    else if (parsedList.target_channel_id && !parsedList.target_user_id) {
       
       return { target_user_id: '', target_channel_id: target_channel_id, action: action_request, payload: textPayload }
     }
 
     //send default_channel_id
     //message will be a DM uder Applications as the bot_user
-    default: {
+    else {
       
       return { target_user_id: '', target_channel_id: default_user_id, action: action_request, payload: textPayload }
     }
-  }
 };
 
 
