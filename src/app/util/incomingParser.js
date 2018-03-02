@@ -1,5 +1,4 @@
 const axios = require('axios');
-const qs = require('querystring');
 const postResult = result => console.log(result.data);
 
 
@@ -38,27 +37,25 @@ const parsePayload = (req) => {
 
 
       const target_user_dm_chan = findDmChannel(target_user_id);
-      return { target_user_dm_chan, target_channel_id, action_request, textPayload }
+      return { target_user_id: target_user_dm_chan, target_channel_id: target_channel_id, action: action_request, payload: textPayload }
     }
 
-    //If there is a target user only, send target_user_dm_chan and the default_channel_id
-    // in_channel=yes and DM=yes....so do we want two seperate messages here??)
+    //If there is a target user only, send target_user_dm_chan and omit the default_channel_id
     case (target_user_id && !target_channel_id) {
 
       const target_user_dm_chan = findDmChannel(target_user_id);
-      return { target_user_dm_chan, default_channel_id, action_request, textPayload }
+      return { target_user_id: target_user_dm_chan, target_channel_id: '', action: action_request, payload: textPayload }
     }
 
-    //If there is a target channel only, send tartget_channel_id and default_user_id
-    //message will be a DM under Applications as the bot_user
+    //If there is a target channel only, send tartget_channel_id and omit default_user_id
     case (target_channel_id && !target_user_id) {
-      return { default_user_id, target_channel_id, action_request, textPayload }
+      return { target_user_id: '', target_channel_id: target_channel_id, action: action_request, payload: textPayload }
     }
 
-    //send default_user_id and default_channel_id
+    //send default_channel_id
     //message will be a DM uder Applications as the bot_user
     default{
-      return { default_user_id, default_channel_id, action_request, textPayload }
+      return { target_user_id: '', target_channel_id: default_channel_id, action: action_request, payload: textPayload }
     }
   }
 };
