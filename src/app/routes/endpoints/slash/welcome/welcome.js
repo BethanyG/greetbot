@@ -1,8 +1,8 @@
 const axios = require('axios');
 const qs = require('querystring');
 const postResult = result => console.log(result.data);
-const welcomeData = require('./../../../data/slash/welcome/slashWelcome.js');
-const helpData = require('./../../../data/slash/welcome/welcomeHelp.js');
+const welcomeData = require('./../../../data/slash/welcome/slashWelcome.js').message;
+const helpData = require('./../../../data/slash/welcome/welcomeHelp.js').help;
 const incomingParser = require('./../../../../util/incomingParser.js');
 
 
@@ -47,7 +47,6 @@ const welcome = (req, res) => {
           console.log("this is a something else");
           console.log(helpData);
           helpMessage(helpData, recipients.target_channel_id);
-          helpMessage({token: 
           res.sendStatus(200);
         }
     }
