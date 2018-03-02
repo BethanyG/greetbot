@@ -67,6 +67,7 @@ const findDmChannel = (userId, default_channel_id) => {
 
   sendDmRequest.then(function(res){
     if (res.ok === true) {
+      console.log(res);
       return res.channel.id
     } else {
       //If something goes wrong, we'll default to the bot_user DM channel.
