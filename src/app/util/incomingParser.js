@@ -57,7 +57,7 @@ const parsePayload = (req) => {
     //send default_channel_id
     //message will be a DM uder Applications as the bot_user
     default: {
-      return { target_user_id: '', target_channel_id: default_channel_id, action: action_request, payload: textPayload }
+      return { target_user_id: '', target_channel_id: default_user_id, action: action_request, payload: textPayload }
     }
   }
 };
