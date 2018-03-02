@@ -42,6 +42,42 @@ const welcome = (req, res) => {
 
   const parsedList = { team_id, target_user_id, target_channel_id, action_request, default_user_id, default_channel_id };
   console.log("ParsedList:" + parsedList);
+  
+  const findDmChannel = (userId, default_channel_id) => {
+  const dmRequest = {token: process.env.SLACK_TOKEN, user: userId };
+  const params = qs.stringify(dmRequest);
+  const sendDmRequest = axios.post('https://slack.com/api/im.open', params);
+  sendDmRequest.then(result => { console.log(result); return result; });
+  }
+  
+  switch (parsedList){
+    //If there isIn  a target user and channel, send both.
+    // channel=yes AND DM=yes....so two seperate messages here?!??!)
+    case (target_channel_id && target_user_id): {
+
+
+      const target_user_dm_chan = findDmChannel(target_user_id, default_channel_id);
+      console.log( "option 1:" + { target_user_id: target_user_dm_chan, target_channel_id: target_channel_id, action: action_request, payload: textPayload });
+    }
+
+    //If there is a target user only, send target_user_dm_chan and omit the default_channel_id
+    case (target_user_id && !target_channel_id): {
+
+      const target_user_dm_chan = findDmChannel(target_user_id, default_channel_id);
+      console.log( { "option 2:" + target_user_id: target_user_dm_chan, target_channel_id: '', action: action_request, payload: textPayload });
+    }
+
+    //If there is a target channel only, send tartget_channel_id and omit default_user_id
+    case (target_channel_id && !target_user_id): {
+      console.log( { target_user_id: '', target_channel_id: target_channel_id, action: action_request, payload: textPayload });
+    }
+
+    //send default_channel_id
+    //message will be a DM uder Applications as the bot_user
+    default: {
+      console.log( { target_user_id: '', target_channel_id: default_channel_id, action: action_request, payload: textPayload } );
+    }
+  }
     
     
   const recipients = incomingParser.parsePayload(req);
