@@ -10,13 +10,11 @@ const welcome = async (req, res) => {
   console.log("Received slash command " + req.body.command + " from " + req.body.user_id + " with " + req.body.text);
 
   const recipients = await incomingParser.parsePayload(req);
-
   console.log(`USER ID :: ${req.body.user_id}`);
   console.log(`TARGET USER :: ${recipients.target_user_id}`);
   console.log(`ACTION :: ${recipients.action}`);
   console.log(`MESSAGE BODY :: ${recipients.payload}`);
   console.log(`CHANNEL NAME :: ${recipients.target_channel_id}`);
-  
   if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
      switch (recipients.action) {
        case 'test':

@@ -40,6 +40,7 @@ const parsePayload = async (req) => {
   //Msgs sent here will come from the bot_user as a DM.
   const default_channel_id = req.body.channel_id;
 
+
   const parsedList = { team_id, target_user_id, target_channel_id, action_request, default_user_id, default_channel_id }
 
 
@@ -59,7 +60,6 @@ const parsePayload = async (req) => {
 
     //If there is a target channel only, send tartget_channel_id and omit default_user_id
     else if (parsedList.target_channel_id && !parsedList.target_user_id) {
-      
       return { target_user_id: '', target_channel_id: target_channel_id, action: action_request, payload: textPayload }
     }
 
