@@ -1,10 +1,11 @@
 require('dotenv').config();
+require('app-module-path').addPath(__dirname + '/app');
 
 const app = require('express')();
 const bodyParser = require('body-parser');
-const initalEvent = require('./app/routes/endpoints/events/initial');
-const slashWelcome = require('./app/routes/endpoints/slash/welcome/welcome');
-const initalResponse = require('./app/routes/data/interactive/initialResponse');
+const initalEvent = require('routes/endpoints/events/initial');
+const slashWelcome = require('routes/endpoints/slash/welcome/welcome');
+const initalResponse = require('routes/data/interactive/initialResponse');
 
 //const app = express();
 

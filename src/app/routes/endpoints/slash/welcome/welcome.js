@@ -1,9 +1,9 @@
 const axios = require('axios');
 const qs = require('querystring');
 const postResult = result => console.log(result.data);
-const welcomeData = require('./../../../data/slash/welcome/slashWelcome.js').message;
-const helpData = require('./../../../data/slash/welcome/welcomeHelp.js').help;
-const incomingParser = require('./../../../../util/incomingParser.js');
+const welcomeData = require('routes/data/slash/welcome/slashWelcome.js').message;
+const helpData = require('routes/data/slash/welcome/welcomeHelp.js').help;
+const incomingParser = require('util/incomingParser.js');
 
 
 const welcome = async (req, res) => {
