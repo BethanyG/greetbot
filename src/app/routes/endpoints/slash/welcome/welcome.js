@@ -24,24 +24,24 @@ const welcome = (req, res) => {
           welcomeMessage(welcomeData, target_user_id);
           welcomeMessage(welcomeData, target_channel_id);
           res.sendStatus(200);
-        }
         } else {
          welcomeMessage(welcomeData, target_channel_id);
          res.sendStatus(200);
          break;
        }
+       
        case 'post': {
          if (target_user_id && target_channel_id){
            welcomeMessage(welcomeData, target_user_id);
            welcomeMessage(welcomeData, target_channel_id);
            res.sendStatus(200);
-         }
          } else {
           welcomeMessage(welcomeData, target_channel_id);
           res.sendStatus(200);
           break;
         }
-        default {
+        }
+        default: {
           helpMessage(helpData, target_channel_id);
           res.sendStatus(200);
         }
