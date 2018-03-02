@@ -6,41 +6,42 @@ const helpData = require('./../../../data/slash/welcome/welcomeHelp');
 const incomingParser = require('./../../../../util/incomingParser');
 
 
-const welcome = (req, res) => {
+onst welcome = (req, res) => {
   console.log("Received slash command " + req.body.command + " from " + req.body.user_id + " with " + req.body.text);
 
-  const { target_user_id, target_channel_id, action, payload } = incomingParser.parsePayload(req);
+  const recipients = incomingParser.parsePayload(req);
+  console.log(recipients);
 
   console.log(`USER ID :: ${req.body.user_id}`);
-  console.log(`TARGET USER :: ${target_user_id}`);
-  console.log(`ACTION :: ${action}`);
-  console.log(`MESSAGE BODY :: ${payload}`);
-  console.log(`CHANNEL NAME :: ${target_channel_id}`);
+  console.log(`TARGET USER :: ${recipients.target_user_id}`);
+  console.log(`ACTION :: ${recipients.action}`);
+  console.log(`MESSAGE BODY :: ${recipients.payload}`);
+  console.log(`CHANNEL NAME :: ${recipients.target_channel_id}`);
 
   if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
-     switch (action) {
+     switch (recipients.action) {
        case 'test':
-        if (target_user_id && target_channel_id){
-          welcomeMessage(welcomeData, target_user_id);
-          welcomeMessage(welcomeData, target_channel_id);
+        if (recipients.target_user_id && recipients.target_channel_id){
+          welcomeMessage(welcomeData, recipients.target_user_id);
+          welcomeMessage(welcomeData, recipients.target_channel_id);
           res.sendStatus(200);
         } else {
-         welcomeMessage(welcomeData, target_channel_id);
+         welcomeMessage(welcomeData, recipients.target_channel_id);
          res.sendStatus(200);
          break;
        }
        case 'post':
-         if (target_user_id && target_channel_id){
-           welcomeMessage(welcomeData, target_user_id);
-           welcomeMessage(welcomeData, target_channel_id);
+         if (recipients.target_user_id && recipients.target_channel_id){
+           welcomeMessage(welcomeData, recipients.target_user_id);
+           welcomeMessage(welcomeData, recipients.target_channel_id);
            res.sendStatus(200);
          } else {
-          welcomeMessage(welcomeData, target_channel_id);
+          welcomeMessage(welcomeData, recipients.target_channel_id);
           res.sendStatus(200);
           break;
         }
         default: {
-          helpMessage(helpData, target_channel_id);
+          helpMessage(helpData, recipients.target_channel_id);
           res.sendStatus(200);
         }
     }

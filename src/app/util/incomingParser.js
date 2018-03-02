@@ -13,11 +13,11 @@ const parsePayload = (req) => {
 
   //public/private channel_id typed with the slash command (if any).
   //Msgs sent here will be in-channel, and the bot_user needs permissions/join for it.
-  const target_channel_id = textPayload.substring(textPayload.lastIndexOf("#")+1, textPayload.IndexOf("|"))
+  const target_channel_id = textPayload.substring(textPayload.lastIndexOf("#")+1, textPayload.indexOf("|"))
 
   //The command word (if any) typed.
   //If there's no legitimate command (or if it's blank), sent Msg should default to "help".
-  const action_request = target_user_id || channel_id ? textPayload.substring(textPayload.indexOf(''),textPayload.IndexOf("<")-1) : req.body.text;
+  const action_request = target_user_id || channel_id ? textPayload.substring(textPayload.indexOf(''),textPayload.indexOf("<")-1) : req.body.text;
 
   //user_id of the user who typed the slash command
   //If no other info is specified, the Msg should go back to this user on the DM channel_id.
