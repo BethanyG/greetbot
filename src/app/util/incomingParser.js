@@ -11,6 +11,7 @@ const parsePayload = (req) => {
 
   //user_id of the @<user_name> typed with the slash command (if any).
   const target_user_id = textPayload.substring(textPayload.lastIndexOf("@")+1, textPayload.lastIndexOf("|"));
+  
 
   //public/private channel_id typed with the slash command (if any).
   //Msgs sent here will be in-channel, and the bot_user needs permissions/join for it.
