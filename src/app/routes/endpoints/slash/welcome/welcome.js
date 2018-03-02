@@ -65,7 +65,7 @@ const welcomeMessage = ( welcomeData, target_channel_id ) => {
  const helpMessage = (helpData, target_channel_id) => {
    console.log("helpData: " + helpData);
    helpData.as_user = false;
-   helpData.channel = `U902SHMTP`;
+   helpData.channel = ;
    console.log("channel: " + helpData.channel);
    console.log("token: " + helpData.token);
    const params = qs.stringify(helpData);

@@ -25,7 +25,7 @@ const parsePayload = (req) => {
 
   //The DM channel id. Default if no target_channel_id is specified.
   //Msgs sent here will come from the bot_user as a DM.
-  const default_channel_id = 'D8ZU7NZPE'
+  const default_channel_id = 'U901HJVT7'
 
   const parsedList = { team_id, target_user_id, target_channel_id, action_request, default_user_id, default_channel_id }
 
