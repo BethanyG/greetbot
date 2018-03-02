@@ -22,6 +22,7 @@ const welcome = (req, res) => {
      switch (recipients.action) {
        case 'test':
         if (recipients.target_user_id && recipients.target_channel_id){
+          console.log("
           welcomeMessage(welcomeData, recipients.target_user_id);
           welcomeMessage(welcomeData, recipients.target_channel_id);
           res.sendStatus(200);
