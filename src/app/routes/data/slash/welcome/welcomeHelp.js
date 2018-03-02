@@ -6,10 +6,10 @@ const help = {
      text: '*How to use /welcome*',
      attachments: JSON.stringify([
        {
-         title: '/welcome is a command to greet users with the CB welcome message & Code of Conduct.',
-         text: [ '* /welcome  Prints this message.',
+         title: 'Greet users with the CB welcome message & Code of Conduct.',
+         text: [ '* `/welcome`  Prints this message.',
                  '* /welcome `test`: Sends a test welcome message as a DM to the user who typed it.',
-                 '* /welcome `post`: Sends a test welcome message to #start_here channel.',
+                 '* /welcome `post`: Sends a test welcome message to the #landing_pad channel.',
                  '* /welcome `[command] @<username>`: Sends the result of the command (_test, post, etc._) as a DM to the user specified.',
                  '* /welcome `[command] #channel_name`: Sends the result of the command (_test, post, etc._) to the specified channel.'
                ].join('\n'),

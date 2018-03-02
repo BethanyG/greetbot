@@ -21,7 +21,6 @@ const welcome = async (req, res) => {
      switch (recipients.action) {
        case 'test':
         if (recipients.target_user_id && recipients.target_channel_id){
-          console.log("this is a test");
           welcomeMessage(welcomeData, recipients.target_user_id);
           welcomeMessage(welcomeData, recipients.target_channel_id);
           res.sendStatus(200);
@@ -32,18 +31,15 @@ const welcome = async (req, res) => {
        }
        case 'post':
          if (recipients.target_user_id && recipients.target_channel_id){
-           console.log("this is a double post");
            welcomeMessage(welcomeData, recipients.target_user_id);
            welcomeMessage(welcomeData, recipients.target_channel_id);
            res.sendStatus(200);
          } else {
-          console.log("this is a single post");
           welcomeMessage(welcomeData, recipients.target_channel_id);
           res.sendStatus(200);
           break;
         }
         default: {
-          console.log("this is a something else");
           helpMessage(helpData, recipients.target_channel_id);
           res.sendStatus(200);
         }
