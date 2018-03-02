@@ -33,7 +33,7 @@ const parsePayload = (req) => {
   switch (parsedList){
     //If there is a target user and channel, send both.
     // channel=yes AND DM=yes....so two seperate messages here?!??!)
-    case (target_channel_id && target_user_id){
+    case (target_channel_id && target_user_id): {
 
 
       const target_user_dm_chan = findDmChannel(target_user_id);
@@ -41,20 +41,20 @@ const parsePayload = (req) => {
     }
 
     //If there is a target user only, send target_user_dm_chan and omit the default_channel_id
-    case (target_user_id && !target_channel_id) {
+    case (target_user_id && !target_channel_id): {
 
       const target_user_dm_chan = findDmChannel(target_user_id);
       return { target_user_id: target_user_dm_chan, target_channel_id: '', action: action_request, payload: textPayload }
     }
 
     //If there is a target channel only, send tartget_channel_id and omit default_user_id
-    case (target_channel_id && !target_user_id) {
+    case (target_channel_id && !target_user_id): {
       return { target_user_id: '', target_channel_id: target_channel_id, action: action_request, payload: textPayload }
     }
 
     //send default_channel_id
     //message will be a DM uder Applications as the bot_user
-    default{
+    default: {
       return { target_user_id: '', target_channel_id: default_channel_id, action: action_request, payload: textPayload }
     }
   }
