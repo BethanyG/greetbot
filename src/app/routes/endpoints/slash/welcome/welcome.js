@@ -17,7 +17,6 @@ const welcome = (req, res) => {
   console.log(`ACTION :: ${recipients.action}`);
   console.log(`MESSAGE BODY :: ${recipients.payload}`);
   console.log(`CHANNEL NAME :: ${recipients.target_channel_id}`);
-  console.log("slack token: " + welcomeData.token);
   
   if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
      switch (recipients.action) {
@@ -64,6 +63,9 @@ const welcomeMessage = ( welcomeData, target_channel_id ) => {
 
  const helpMessage = (helpData, target_channel_id) => {
    helpData.channel = target_channel_id;
+   console.log("helpData: " + helpData);
+   console.log("channel: " + helpData.channel);
+   console.log("token: " + helpData.token);
    const params = qs.stringify(helpData);
    const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
    sendMessage.then(postResult);
