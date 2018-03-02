@@ -25,7 +25,7 @@ const parsePayload = (req) => {
 
   //The DM channel id. Default if no target_channel_id is specified.
   //Msgs sent here will come from the bot_user as a DM.
-  const default_channel_id = 'U901HJVT7'
+  const default_channel_id = 'D8ZU7NZPE'
 
   const parsedList = { team_id, target_user_id, target_channel_id, action_request, default_user_id, default_channel_id }
 
@@ -64,15 +64,18 @@ const parsePayload = (req) => {
 const findDmChannel = (userId, default_channel_id) => {
   const dmRequest = {token: process.env.SLACK_TOKEN, user: userId };
   const sendDmRequest = axios.post('https://slack.com/im.open', dmRequest);
-
-  sendDmRequest.then(function(res){
-    if (res.ok === true) {
-      return res.channel.id
-    } else {
+  sendDmRequest.then(postResult);
+  
+  
+  //sendDmRequest.then(function(res){
+   // console.log(res);
+    //if (res.ok === true) {
+     // return res.channel.id
+    //} else {
       //If something goes wrong, we'll default to the bot_user DM channel.
-      return default_channel_id
-    }
-  });
+     // return default_channel_id
+    //}
+  //});
 };
 
 module.exports = { parsePayload };

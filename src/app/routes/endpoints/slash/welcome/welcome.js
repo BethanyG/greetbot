@@ -45,7 +45,6 @@ const welcome = (req, res) => {
         }
         default: {
           console.log("this is a something else");
-          console.log(helpData);
           helpMessage(helpData, recipients.target_channel_id);
           res.sendStatus(200);
         }
@@ -63,13 +62,9 @@ const welcomeMessage = ( welcomeData, target_channel_id ) => {
  }
 
  const helpMessage = (helpData, target_channel_id) => {
-   console.log("helpData: " + helpData);
    helpData.as_user = false;
-   helpData.channel = ;
-   console.log("channel: " + helpData.channel);
-   console.log("token: " + helpData.token);
+   helpData.channel = target_channel_id;
    const params = qs.stringify(helpData);
-   console.log(params);
    const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
    sendMessage.then(postResult);
  };
