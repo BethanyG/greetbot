@@ -1,5 +1,6 @@
 const axios = require('axios');
 const postResult = result => console.log(result.data);
+const qs = require('querystring');
 
 
 const parsePayload = (req) => {
@@ -63,7 +64,8 @@ const parsePayload = (req) => {
 
 const findDmChannel = (userId, default_channel_id) => {
   const dmRequest = {token: process.env.SLACK_TOKEN, user: userId };
-  const sendDmRequest = axios.post('https://slack.com/im.open', dmRequest);
+  const params = qs.stringify(dmRequest);
+  const sendDmRequest = axios.post('https://slack.com/api/im.open', params);
   sendDmRequest.then(postResult);
   
   
