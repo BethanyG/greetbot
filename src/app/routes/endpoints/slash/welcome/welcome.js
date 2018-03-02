@@ -11,37 +11,35 @@ const welcome = (req, res) => {
 
   const { target_user_id, target_channel_id, action, payload } = incomingParser.parsePayload(req);
 
-  console.log(`USER ID :: ${user_id}`);
+  console.log(`USER ID :: ${req.body.user_id}`);
   console.log(`TARGET USER :: ${target_user_id}`);
-  console.log(`ACTION :: ${action_request}`);
-  console.log(`MESSAGE BODY :: ${textPayload}`);
-  console.log(`CHANNEL NAME :: ${channel_id}`);
+  console.log(`ACTION :: ${action}`);
+  console.log(`MESSAGE BODY :: ${payload}`);
+  console.log(`CHANNEL NAME :: ${target_channel_id}`);
 
   if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
-     switch (action_request) {
+     switch (action) {
        case 'test':
         if (target_user_id && target_channel_id){
           welcomeMessage(welcomeData, target_user_id);
           welcomeMessage(welcomeData, target_channel_id);
           res.sendStatus(200);
-        }
         } else {
          welcomeMessage(welcomeData, target_channel_id);
          res.sendStatus(200);
          break;
        }
-       case 'post': {
+       case 'post':
          if (target_user_id && target_channel_id){
            welcomeMessage(welcomeData, target_user_id);
            welcomeMessage(welcomeData, target_channel_id);
            res.sendStatus(200);
-         }
          } else {
           welcomeMessage(welcomeData, target_channel_id);
           res.sendStatus(200);
           break;
         }
-        default {
+        default: {
           helpMessage(helpData, target_channel_id);
           res.sendStatus(200);
         }
