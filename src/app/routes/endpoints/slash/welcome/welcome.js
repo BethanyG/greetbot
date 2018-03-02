@@ -1,9 +1,9 @@
 const axios = require('axios');
 const qs = require('querystring');
 const postResult = result => console.log(result.data);
-const welcomeData = require('./../../../data/slash/welcome/slashWelcome');
-const helpData = require('./../../../data/slash/welcome/welcomeHelp');
-const incomingParser = require('./../../../../util/incomingParser');
+const welcomeData = require('./../../../data/slash/welcome/slashWelcome.js');
+const helpData = require('./../../../data/slash/welcome/welcomeHelp.js');
+const incomingParser = require('./../../../../util/incomingParser.js');
 
 
 const welcome = (req, res) => {
@@ -17,12 +17,13 @@ const welcome = (req, res) => {
   console.log(`ACTION :: ${recipients.action}`);
   console.log(`MESSAGE BODY :: ${recipients.payload}`);
   console.log(`CHANNEL NAME :: ${recipients.target_channel_id}`);
-
+  console.log("slack token: " + welcomeData.token);
+  
   if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
      switch (recipients.action) {
        case 'test':
         if (recipients.target_user_id && recipients.target_channel_id){
-          console.log("
+          console.log("this is a test");
           welcomeMessage(welcomeData, recipients.target_user_id);
           welcomeMessage(welcomeData, recipients.target_channel_id);
           res.sendStatus(200);
@@ -33,15 +34,18 @@ const welcome = (req, res) => {
        }
        case 'post':
          if (recipients.target_user_id && recipients.target_channel_id){
+           console.log("this is a double post");
            welcomeMessage(welcomeData, recipients.target_user_id);
            welcomeMessage(welcomeData, recipients.target_channel_id);
            res.sendStatus(200);
          } else {
+          console.log("this is a single post");
           welcomeMessage(welcomeData, recipients.target_channel_id);
           res.sendStatus(200);
           break;
         }
         default: {
+          console.log("this is a something else");
           helpMessage(helpData, recipients.target_channel_id);
           res.sendStatus(200);
         }
