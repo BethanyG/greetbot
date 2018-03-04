@@ -10,38 +10,49 @@ const welcome = async (req, res) => {
   console.log("Received slash command " + req.body.command + " from " + req.body.user_id + " with " + req.body.text);
 
   const recipients = await incomingParser.parsePayload(req);
+  console.log(recipients);
+
   console.log(`USER ID :: ${req.body.user_id}`);
   console.log(`TARGET USER :: ${recipients.target_user_id}`);
   console.log(`ACTION :: ${recipients.action}`);
   console.log(`MESSAGE BODY :: ${recipients.payload}`);
   console.log(`CHANNEL NAME :: ${recipients.target_channel_id}`);
+
   if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
      switch (recipients.action) {
        case 'test':
-        if (recipients.target_user_id && recipients.target_channel_id){
+        if (recipients.target_user_id != recipients.target_channel_id){
           welcomeMessage(welcomeData, recipients.target_user_id);
           welcomeMessage(welcomeData, recipients.target_channel_id);
           res.sendStatus(200);
+          break;
         } else {
          welcomeMessage(welcomeData, recipients.target_channel_id);
          res.sendStatus(200);
          break;
        }
        case 'post':
-         if (recipients.target_user_id && recipients.target_channel_id){
+         if (recipients.target_user_id != recipients.target_channel_id){
            welcomeMessage(welcomeData, recipients.target_user_id);
            welcomeMessage(welcomeData, recipients.target_channel_id);
            res.sendStatus(200);
+           break;
          } else {
           welcomeMessage(welcomeData, recipients.target_channel_id);
           res.sendStatus(200);
           break;
         }
-        default: {
+        default:
+          if (recipients.target_user_id != recipients.target_channel_id){
+          helpMessage(helpData, recipients.target_user_id);
           helpMessage(helpData, recipients.target_channel_id);
           res.sendStatus(200);
+          break;
+        } else {
+         helpMessage(helpData, recipients.target_channel_id);
+         res.sendStatus(200);
         }
-    }
+      }
   } else { res.sendStatus(503); }
 };
 
