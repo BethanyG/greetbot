@@ -6,7 +6,7 @@ const helpData = require('./../../../data/slash/welcome/welcomeHelp');
 const incomingParser = require('./../../../../util/incomingParser');
 
 
-onst welcome = (req, res) => {
+const welcome = (req, res) => {
   console.log("Received slash command " + req.body.command + " from " + req.body.user_id + " with " + req.body.text);
 
   const recipients = incomingParser.parsePayload(req);
