@@ -1,15 +1,15 @@
 const axios = require('axios');
 const qs = require('querystring');
 const postResult = result => console.log(result.data);
-const welcomeData = require('./../../../data/slash/welcome/slashWelcome');
-const helpData = require('./../../../data/slash/welcome/welcomeHelp');
-const incomingParser = require('./../../../../util/incomingParser');
+const welcomeData = require('routes/data/slash/welcome/slashWelcome.js').message;
+const helpData = require('routes/data/slash/welcome/welcomeHelp.js').help;
+const incomingParser = require('util/incomingParser.js');
 
 
-const welcome = (req, res) => {
+const welcome = async (req, res) => {
   console.log("Received slash command " + req.body.command + " from " + req.body.user_id + " with " + req.body.text);
 
-  const recipients = incomingParser.parsePayload(req);
+  const recipients = await incomingParser.parsePayload(req);
   console.log(recipients);
 
   console.log(`USER ID :: ${req.body.user_id}`);
