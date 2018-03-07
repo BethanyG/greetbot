@@ -6,7 +6,7 @@ const resourcesData = require('util/ymlLoader.js').resourcesData;
 
 const helpData = require('routes/data/slash/resources/resourcesHelp.js').help;
 const resourcesTemplateMessage = require('routes/data/slash/resources/resourcesMessage.js').message;
-const genericResourcesAttachmentTemplate = require('routes/data/slash/resource/genericResourcesAttachmentTemplate.js').generateResourcesMessage;
+const genericResourcesAttachmentTemplate = require('routes/data/slash/resources/genericResourcesAttachmentTemplate.js').generateResourcesMessage;
 const incomingParser = require('util/incomingParser.js');
 
 const resources = async (req, res) => {
