@@ -6,6 +6,7 @@ const resourcesData = require('util/ymlLoader.js').resourcesData;
 
 const helpData = require('routes/data/slash/resources/resourcesHelp.js').help;
 const resourcesTemplateMessage = require('routes/data/slash/resources/resourcesMessage.js').message;
+const genericResourcesAttachmentTemplate = require('routes/data/slash/resource/genericResourcesAttachmentTemplate.js').generateResourcesMessage;
 const incomingParser = require('util/incomingParser.js');
 
 const resources = async (req, res) => {
@@ -22,14 +23,14 @@ const resources = async (req, res) => {
         let attachments;
         if (!parsedCommand.action_arguments.length) {
           title = "*Here is the full list of resources:*";
-          attachments = generateResourcesMessage(resourcesData.resources);
+          attachments = genericResourcesAttachmentTemplate(resourcesData.resources);
         } else {
           const filteredResources = resourcesData.resources.filter(resource => {
             return !(!parsedCommand.action_arguments.includes(resource.language.toLowerCase()) ||
                     !parsedCommand.action_arguments.includes(resource.level.toLowerCase()));
           });
           title = `*Here are the topics for ${parsedCommand.action_arguments.join(" ")}*`;
-          attachments = generateResourcesMessage(filteredResources);
+          attachments = genericResourcesAttachmentTemplate(filteredResources);
         }
         filterAndPostResults(parsedCommand.target_channel_id, parsedCommand.target_user_id, resourceMessage, resourcesTemplateMessage, title, attachments);
         res.sendStatus(200);
@@ -61,18 +62,6 @@ const helpMessage = (helpData, target_channel_id, title, attachments) => {
   const params = qs.stringify(helpData);
   const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
   sendMessage.then(postResult);
-};
-
-const generateResourcesMessage = (resources) => {
-  let attachments = [];
-  resources.forEach(resource => {
-    const pretext = `${resource['language-icon']}  ${resource['language-desc']}`;
-    const title = `\n${resource['level']} ${resource['language']}\n\n`;
-    const text = `${resource['video-link']}  ${resource['video-desc']}\n\n${resource['tutorial-link']}  ${resource['tutorial-desc']}\n\n${resource['book-link']}  ${resource['book-desc']}\n\n${resource['class-link']}  ${resource['class-desc']}\n\n${resource['help_link']}\n\n${resource['more-questions']}\n\n\n${resource['maintainer']}`;
-    const color = `${resource['sidebar-color']}`;
-    attachments.push({pretext, title, text, color});
-  });
-  return attachments;
 };
 
 const resourceMessage = (resourcesTemplateMessage, target_channel_id, title, attachments) => {
