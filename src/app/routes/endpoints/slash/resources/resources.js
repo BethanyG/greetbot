@@ -2,7 +2,8 @@ const axios = require('axios');
 const qs = require('querystring');
 const postResult = result => console.log(result.data);
 
-const resourcesData = require('util/ymlLoader.js').resourcesData;
+const resourcesData = require('util/ymlLoader.js').resources;
+const messageTemplates = require('util/ymlLoader.js').messageTemplates;
 
 const helpData = require('routes/data/slash/resources/resourcesHelp.js').help;
 const resourcesTemplateMessage = require('routes/data/slash/resources/resourcesMessage.js').message;
@@ -19,6 +20,17 @@ const resources = async (req, res) => {
   if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
     switch (parsedCommand.action) {
       case 'list': {
+        let resourcesSorted = resourcesData.reduce((count, resource) => {
+          count[resource.language.toLowerCase()] = count[resource.language.toLowerCase()] || [];
+          count[resource.language.toLowerCase()].push(resource);
+          return count;
+        }, Object.create(null));
+        let resourcesCounted = Object.keys(resourcesSorted).reduce((lang, count) => ({...lang, [count]: resourcesSorted[count]}), {})
+        filterAndPostResults(parsedCommand.target_channel_id, parsedCommand.target_user_id, listResourcesMessage, resourcesTemplateMessage, "Here is the current count of resources", resourcesCounted);
+        res.sendStatus(200);
+        break;
+      }
+      case 'post': {
         let title;
         let attachments;
         if (!parsedCommand.action_arguments.length) {
@@ -33,11 +45,6 @@ const resources = async (req, res) => {
           attachments = genericResourcesAttachmentTemplate(filteredResources);
         }
         filterAndPostResults(parsedCommand.target_channel_id, parsedCommand.target_user_id, resourceMessage, resourcesTemplateMessage, title, attachments);
-        res.sendStatus(200);
-        break;
-      }
-      case 'post': {
-        filterAndPostResults(parsedCommand.target_channel_id, parsedCommand.target_user_id, helpMessage, helpData);
         res.sendStatus(200);
         break;
       }
@@ -71,6 +78,26 @@ const resourceMessage = (resourcesTemplateMessage, target_channel_id, title, att
   if (attachments) {
     resourcesTemplateMessage.attachments = JSON.stringify(attachments);
   }
+  resourcesTemplateMessage.channel = target_channel_id;
+  const params = qs.stringify(resourcesTemplateMessage);
+  const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
+  sendMessage.then(postResult);
+}
+
+const listResourcesMessage = (resourcesTemplateMessage, target_channel_id, title, attachments) => {
+  resourcesTemplateMessage.text = title;
+  resourcesTemplateMessage.attachments = JSON.stringify([
+    {
+      text: Object.entries(attachments).map(entry => {
+        `We have ${entry[1]} ${entry[0]} resource${entry[1] == 1 ? '' : 's'}.`
+      }).join('\n'),
+      color: '#74C8ED',
+    },
+    {
+      title: '*How to view these resources:*',
+      text: 'To view a language list, type `/resources post {language}`. For more specific resources, you can also filter by level (beginner, intermediate, or advanced), type (video, book, class, or tutorial), and whether it is free or not.\nFor example, `/resources post javascript beginner book free` would give you a list of free books, aimed at beginning your javascript career.',
+      color: '#551A8B',
+    }]);
   resourcesTemplateMessage.channel = target_channel_id;
   const params = qs.stringify(resourcesTemplateMessage);
   const sendMessage = axios.post('https://slack.com/api/chat.postMessage', params);
