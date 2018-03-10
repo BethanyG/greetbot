@@ -15,11 +15,12 @@ const resources = async (req, res) => {
 
   const parsedCommand = await incomingParser.parsePayload(req);
 
-  console.log(`parsedCommand is ${parsedCommand}`);
+  console.log(`parsedCommand is ${JSON.stringify(parsedCommand)}`);
 
   if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
     switch (parsedCommand.action) {
       case 'list': {
+        console.log(`${JSON.stringify(resourcesData)}`);
         let resourcesSorted = resourcesData.reduce((count, resource) => {
           count[resource.language.toLowerCase()] = count[resource.language.toLowerCase()] || [];
           count[resource.language.toLowerCase()].push(resource);
