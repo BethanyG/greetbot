@@ -1,0 +1,7 @@
+name: "Watch and Code"
+description: "_Amazing video tutorials that turn beginners into professional software engineers (TM)._"
+link: "https://watchandcode.com/"
+type: "video"
+free: true
+language: "javascript"
+level: "beginner"
