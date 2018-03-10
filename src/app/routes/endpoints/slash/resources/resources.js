@@ -20,13 +20,10 @@ const resources = async (req, res) => {
   if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
     switch (parsedCommand.action) {
       case 'list': {
-        let resourcesSorted = resourcesData.reduce((count, resource) => {
-          count[resource.language.toLowerCase()] = count[resource.language.toLowerCase()] || [];
-          count[resource.language.toLowerCase()].push(resource);
+        let resourcesCounted = resourcesData.reduce((count, resource) => {
+          count[resource.language.toLowerCase()] = (count[resource.language.toLowerCase()] || 0) + 1;
           return count;
         }, Object.create(null));
-        let resourcesCounted = Object.keys(resourcesSorted).reduce((lang, count) => ({...lang, [count]: resourcesSorted[count]}), {})
-        console.log(Object.keys(resourcesSorted));
         filterAndPostResults(parsedCommand.target_channel_id, parsedCommand.target_user_id, listResourcesMessage, resourcesTemplateMessage, "Here is the current count of resources", resourcesCounted);
         res.sendStatus(200);
         break;
@@ -87,11 +84,10 @@ const resourceMessage = (resourcesTemplateMessage, target_channel_id, title, att
 
 const listResourcesMessage = (resourcesTemplateMessage, target_channel_id, title, attachments) => {
   resourcesTemplateMessage.text = title;
-  console.log(attachments);
   resourcesTemplateMessage.attachments = JSON.stringify([
     {
       text: Object.entries(attachments).map(entry => {
-        `We have ${entry[1]} ${entry[0]} resource${entry[1] == 1 ? '' : 's'}.`
+        return `We have ${entry[1]} ${entry[0]} resource${entry[1] == 1 ? '' : 's'}.`
       }).join('\n'),
       color: '#74C8ED',
     },
