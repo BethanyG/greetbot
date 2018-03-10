@@ -20,13 +20,13 @@ const resources = async (req, res) => {
   if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
     switch (parsedCommand.action) {
       case 'list': {
-        console.log(`${JSON.stringify(resourcesData)}`);
         let resourcesSorted = resourcesData.reduce((count, resource) => {
           count[resource.language.toLowerCase()] = count[resource.language.toLowerCase()] || [];
           count[resource.language.toLowerCase()].push(resource);
           return count;
         }, Object.create(null));
         let resourcesCounted = Object.keys(resourcesSorted).reduce((lang, count) => ({...lang, [count]: resourcesSorted[count]}), {})
+        console.log(Object.keys(resourcesSorted));
         filterAndPostResults(parsedCommand.target_channel_id, parsedCommand.target_user_id, listResourcesMessage, resourcesTemplateMessage, "Here is the current count of resources", resourcesCounted);
         res.sendStatus(200);
         break;
@@ -87,6 +87,7 @@ const resourceMessage = (resourcesTemplateMessage, target_channel_id, title, att
 
 const listResourcesMessage = (resourcesTemplateMessage, target_channel_id, title, attachments) => {
   resourcesTemplateMessage.text = title;
+  console.log(attachments);
   resourcesTemplateMessage.attachments = JSON.stringify([
     {
       text: Object.entries(attachments).map(entry => {
@@ -95,8 +96,8 @@ const listResourcesMessage = (resourcesTemplateMessage, target_channel_id, title
       color: '#74C8ED',
     },
     {
-      title: '*How to view these resources:*',
-      text: 'To view a language list, type `/resources post {language}`. For more specific resources, you can also filter by level (beginner, intermediate, or advanced), type (video, book, class, or tutorial), and whether it is free or not.\nFor example, `/resources post javascript beginner book free` would give you a list of free books, aimed at beginning your javascript career.',
+      title: 'How to view these resources:',
+      text: 'To view a language list, type `/resources post {language}`.\nFor more specific resources, you can also filter by level (beginner, intermediate, or advanced), type (video, book, class, or tutorial), and whether it is free or not.\nFor example, `/resources post javascript beginner book free` would give you a list of free books, aimed at beginning your javascript career.',
       color: '#551A8B',
     }]);
   resourcesTemplateMessage.channel = target_channel_id;
