@@ -102,4 +102,84 @@ const findDmChannel = async (userId) => {
   return req_id;
 };
 
+const sortArguments = (arguments) => {
+  let languages = [];
+  let levels = [];
+  let types = [];
+  let costs = [];
+  arguments.forEach(argument => {
+    switch (argument.toLowerCase()) {
+      // languages sort
+      case 'javascript', 'js': {
+        languages.push("javascript");
+        break;
+      }
+      case 'python': {
+        languages.push("python");
+        break;
+      }
+      case 'ruby': {
+        languages.push("ruby");
+        break;
+      }
+
+      // levels sort
+      case 'beginner', 'beg': {
+        levels.push("beginner");
+        break;
+      }
+      case 'intermediate', 'int', 'inter': {
+        levels.push("intermediate");
+        break;
+      }
+      case 'advanced', 'adv', 'moar': {
+        levels.push("advanced");
+        break;
+      }
+
+      // types sort
+      case 'book': {
+        types.push("book");
+        break;
+      }
+      case 'tutorial': {
+        types.push("tutorial");
+        break;
+      }
+      case 'class': {
+        types.push("class");
+        break;
+      }
+      case 'video': {
+        types.push("video");
+        break;
+      }
+
+      // costs sort
+      case 'free': {
+        costs.push(true);
+        break;
+      }
+      case 'paid': {
+        costs.push(false);
+        break;
+      }
+    }
+  });
+  let returnArgs = {};
+  if (languages.length) {
+    returnArgs["languages"] = languages;
+  }
+  if (levels.length) {
+    returnArgs["levels"] = levels;
+  }
+  if (types.length) {
+    returnArgs["types"] = types;
+  }
+  if (costs.length) {
+    returnArgs["costs"] = costs;
+  }
+  return returnArgs;
+}
+
 module.exports = { parsePayload };
