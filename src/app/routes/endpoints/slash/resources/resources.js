@@ -2,8 +2,8 @@ const axios = require('axios');
 const qs = require('querystring');
 const postResult = result => console.log(result.data);
 
-const resourcesData = require('util/ymlLoader.js').resources;
-const messageTemplates = require('util/ymlLoader.js').messageTemplates;
+const resources = require('util/ymlLoader.js').messageAttachments;
+const messageBodies = require('util/ymlLoader.js').messageBodies;
 
 const helpData = require('routes/data/slash/resources/resourcesHelp.js').help;
 const resourcesTemplateMessage = require('routes/data/slash/resources/resourcesMessage.js').message;
