@@ -159,27 +159,27 @@ const sortArguments = (arguments) => {
 
       // costs sort
       case 'free': {
-        costs.push(true);
+        costs.push('free');
         break;
       }
       case 'paid': {
-        costs.push(false);
+        costs.push('paid');
         break;
       }
     }
   });
   let returnArgs = {};
   if (languages.length) {
-    returnArgs["languages"] = languages;
+    returnArgs["language"] = languages;
   }
   if (levels.length) {
-    returnArgs["levels"] = levels;
+    returnArgs["level"] = levels;
   }
   if (types.length) {
-    returnArgs["types"] = types;
+    returnArgs["media-type"] = types;
   }
   if (costs.length) {
-    returnArgs["costs"] = costs;
+    returnArgs["media-cost-desc"] = costs;
   }
   return returnArgs;
 }
