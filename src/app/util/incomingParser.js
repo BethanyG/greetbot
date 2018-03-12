@@ -50,7 +50,9 @@ const parsePayload = async (req) => {
     action_keywords = [];
   }
   if (action_arguments.length === 1 && action_arguments[0] === "") {
-    action_arguments = [];
+    action_arguments = {};
+  } else {
+    action_arguments = sortArguments(action_arguments);
   }
 
   //user_id of the user who typed the slash command
