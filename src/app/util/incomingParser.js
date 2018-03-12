@@ -49,11 +49,13 @@ const parsePayload = async (req) => {
   if (action_keywords.length > 1) {
     action_keywords = [];
   }
+  console.log(action_arguments.length)
   if (action_arguments.length === 1 && action_arguments[0] === "") {
     action_arguments = {};
   } else {
     action_arguments = sortArguments(action_arguments);
   }
+  console.log(action_arguments)
 
   //user_id of the user who typed the slash command
   //If no other info is specified, the Msg should go back to this user on the DM channel_id.
@@ -104,15 +106,17 @@ const findDmChannel = async (userId) => {
   return req_id;
 };
 
-const sortArguments = (arguments) => {
+const sortArguments = (req_arguments) => {
   let languages = [];
   let levels = [];
   let types = [];
   let costs = [];
-  arguments.forEach(argument => {
+  req_arguments.forEach(argument => {
+    console.log(argument);
     switch (argument.toLowerCase()) {
       // languages sort
-      case 'javascript', 'js': {
+      case 'javascript':
+      case 'js': {
         languages.push("javascript");
         break;
       }
@@ -126,11 +130,13 @@ const sortArguments = (arguments) => {
       }
 
       // levels sort
-      case 'beginner', 'beg': {
+      case 'beginner':
+      case 'beg': {
         levels.push("beginner");
         break;
       }
-      case 'intermediate', 'int', 'inter': {
+      case 'intermediate':
+      case 'int', 'inter': {
         levels.push("intermediate");
         break;
       }
@@ -168,6 +174,7 @@ const sortArguments = (arguments) => {
       }
     }
   });
+  console.log(levels);
   let returnArgs = {};
   if (languages.length) {
     returnArgs["language"] = languages;
