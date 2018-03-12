@@ -40,7 +40,6 @@ const resources = async (req, res) => {
           attachments = genericResourcesAttachmentTemplate(resourcesData, messageBodies);
         } else {
           const filteredResources = filterResources(resourcesData, parsedCommand.action_arguments);
-          console.log(filteredResources);
           const filteredBodies = filterBodies(filteredResources, messageBodies);
           title = `*Here are the resources you requested:*`;
           attachments = genericResourcesAttachmentTemplate(filteredResources, filteredBodies);

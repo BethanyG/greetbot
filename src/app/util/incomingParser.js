@@ -136,11 +136,14 @@ const sortArguments = (req_arguments) => {
         break;
       }
       case 'intermediate':
-      case 'int', 'inter': {
+      case 'int':
+      case 'inter': {
         levels.push("intermediate");
         break;
       }
-      case 'advanced', 'adv', 'moar': {
+      case 'advanced':
+      case 'adv':
+      case 'moar': {
         levels.push("advanced");
         break;
       }
@@ -174,7 +177,6 @@ const sortArguments = (req_arguments) => {
       }
     }
   });
-  console.log(levels);
   let returnArgs = {};
   if (languages.length) {
     returnArgs["language"] = languages;

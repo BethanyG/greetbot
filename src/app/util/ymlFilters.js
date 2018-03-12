@@ -23,10 +23,11 @@ const filterTemplates = (resources, messageTemplates) => {
       toKeep[resource['language']] = [resource['level']];
     }
   })
+  let keptTemplates = {}
   for (var template in messageTemplates) {
-    let language = template['language'].toLowerCase();
-    let level = template['level'].toLowerCase();
-    if (!(toKeep.hasOwnProperty(language) && toKeep[language].includes(level))) {
+    let language = messageTemplates[template]['language'].toLowerCase();
+    let level = messageTemplates[template]['level'].toLowerCase();
+    if ((toKeep.hasOwnProperty(language) && toKeep[language].includes(level))) {
       delete messageTemplates[template];
     }
   }
