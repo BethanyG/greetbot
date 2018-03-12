@@ -7,26 +7,24 @@ const generateResourcesMessage = (resources, templates) => {
   //   const color = `${resource['sidebar-color']}`;
   //   attachments.push({pretext, title, text, color});
   // });
-  templates.forEach(template => {
-    for (var tempName in template) {
-      let tempLang = template[tempName]['language'];
-      let tempLevel = template[tempName]['level'];
-      const pretext = `${template[tempName]['language-icon']}${template[tempName]['level-icon']} *${tempLang} ${tempLevel}*\n${template[tempName]['language-blurb']}`;
-      const title = `${template[tempName]['language-desc']}`;
-      let resourceText = [];
-      resources.filter(resource => {
-        return resource['language'].toLowerCase() === tempLang.toLowerCase() &&
-                resource['level'].toLowerCase() === tempLevel.toLowerCase();
-      }).forEach(resource => {
-        let costText = resource['media-cost-desc'] === "FREE" ? '' : `(PAID) ${resource['media-cost']}`;
-        resourceText.push(`${resource['media-icon']} ${resource['media-link']} ${resource['media-desc']} ${costText}`);
-      });
-      resourceText.push(template[tempName]['help_link'], template[tempName]['more-questions'], template[tempName]['maintainer']);
-      const text = resourceText.join("\n\n\n");
-      const color = template[tempName]['sidebar-color'];
-      attachments.push({pretext, title, text, color});
-    }
-  });
+  for (var template in templates) {
+    let tempLang = templates[template]['language'];
+    let tempLevel = templates[template]['level'];
+    const pretext = `${templates[template]['language-icon']}${templates[template]['level-icon']} *${tempLang} ${tempLevel}*\n${templates[template]['language-blurb']}`;
+    const title = `${templates[template]['language-desc']}`;
+    let resourceText = [];
+    resources.filter(resource => {
+      return resource['language'].toLowerCase() === tempLang.toLowerCase() &&
+      resource['level'].toLowerCase() === tempLevel.toLowerCase();
+    }).forEach(resource => {
+      let costText = resource['media-cost-desc'] === "FREE" ? '' : `(PAID) ${resource['media-cost']}`;
+      resourceText.push(`${resource['media-icon']} ${resource['media-link']} ${resource['media-desc']} ${costText}`);
+    });
+    resourceText.push(templates[template]['help_link'], templates[template]['more-questions'], templates[template]['maintainer']);
+    const text = resourceText.join("\n\n\n");
+    const color = templates[template]['sidebar-color'];
+    attachments.push({pretext, title, text, color});
+  }
   return attachments;
 };
 
