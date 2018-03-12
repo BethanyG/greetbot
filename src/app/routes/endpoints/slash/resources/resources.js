@@ -41,7 +41,7 @@ const resources = async (req, res) => {
           const filteredResources = filterResources(resources, parsedCommand.action_arguments);
           const filteredBodies = filterBodies(filteredResources, messageBodies);
           title = `*Here are the resources you requested:*`;
-          attachments = genericResourcesAttachmentTemplate(filteredResources);
+          attachments = genericResourcesAttachmentTemplate(filteredResources, filteredBodies);
         }
         filterAndPostResults(parsedCommand.target_channel_id, parsedCommand.target_user_id, resourceMessage, resourcesTemplateMessage, title, attachments);
         res.sendStatus(200);
