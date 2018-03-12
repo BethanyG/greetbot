@@ -1,5 +1,5 @@
 const filterResources = (resourceList, filters) => {
-  resourceList.filter(resource => {
+  return resourceList.filter(resource => {
     let keep = false;
     for (var filter in filters) {
       if (!filters.hasOwnProperty(filter)) continue;
