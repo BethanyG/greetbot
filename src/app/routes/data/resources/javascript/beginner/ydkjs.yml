@@ -1,7 +1,0 @@
-name: "You Don't Know JS"
-description: "_This series represent the reference for anyone who is eager to understand the fundamentals of the Javascript language. The way it is clearly split between the different paradigms of the language with the different books makes it a lot more accessible than other Javascript 'bibles' can be._"
-link: "https://github.com/getify/You-Dont-Know-JS"
-type: "book"
-free: true
-language: "javascript"
-level: "beginner"
