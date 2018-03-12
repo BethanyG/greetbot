@@ -1,4 +1,6 @@
 resource-number: 4
+language: 'javascript'
+level: 'advanced'
 media-cost: "$0"
 media-cost-desc: "FREE"
 media-type: "website"

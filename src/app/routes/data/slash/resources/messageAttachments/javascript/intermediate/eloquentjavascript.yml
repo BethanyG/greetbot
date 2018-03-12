@@ -1,4 +1,6 @@
 resource-number: 2
+language: 'javascript'
+level: 'intermediate'
 media-cost: "$31"
 media-cost-desc: "PAID"
 media-type: "book"

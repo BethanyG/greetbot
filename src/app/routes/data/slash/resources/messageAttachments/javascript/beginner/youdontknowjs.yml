@@ -1,4 +1,6 @@
 resource-number: 3
+language: 'javascript'
+level: 'beginner'
 media-cost: $0
 media-cost-desc: "FREE"
 media-type: "book"

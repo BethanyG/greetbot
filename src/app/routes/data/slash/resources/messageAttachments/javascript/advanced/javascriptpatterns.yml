@@ -1,4 +1,6 @@
 resource-number: 3
+language: 'javascript'
+level: 'advanced'
 media-cost: "$13.49"
 media-cost-desc: "PAID"
 media-type: "book"
