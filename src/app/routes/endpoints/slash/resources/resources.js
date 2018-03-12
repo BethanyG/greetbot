@@ -7,8 +7,11 @@ const messageBodies = require('util/ymlLoader.js').messageBodies;
 
 const helpData = require('routes/data/slash/resources/resourcesHelp.js').help;
 const resourcesTemplateMessage = require('routes/data/slash/resources/resourcesMessage.js').message;
-const genericResourcesAttachmentTemplate = require('routes/data/slash/resources/genericResourcesAttachmentTemplate.js').generateResourcesMessage;
+const genericResourcesAttachmentTemplate = require('routes/data/slash/resources/messageTemplates/genericResourcesAttachmentTemplate.js').generateResourcesMessage;
 const incomingParser = require('util/incomingParser.js');
+
+const filterResources = require('util/ymlFilters.js').filterResources;
+const filterBodies = require('util/ymlFilters.js').filterTemplates;
 
 const resources = async (req, res) => {
   console.log(`Received slash command ${req.body.command} from ${req.body.user_id} with ${req.body.text}.`);
@@ -31,15 +34,13 @@ const resources = async (req, res) => {
       case 'post': {
         let title;
         let attachments;
-        if (!parsedCommand.action_arguments.length) {
+        if (!(Object.keys(parsedCommand.action_arguments).length && parsedCommand.action_arguments.constructor === Object)) {
           title = "*Here is the full list of resources:*";
-          attachments = genericResourcesAttachmentTemplate(resourcesData.resources);
+          attachments = genericResourcesAttachmentTemplate(resources, messageBodies);
         } else {
-          const filteredResources = resourcesData.resources.filter(resource => {
-            return !(!parsedCommand.action_arguments.includes(resource.language.toLowerCase()) ||
-                    !parsedCommand.action_arguments.includes(resource.level.toLowerCase()));
-          });
-          title = `*Here are the topics for ${parsedCommand.action_arguments.join(" ")}*`;
+          const filteredResources = filterResources(resources, parsedCommand.action_arguments);
+          const filteredBodies = filterBodies(filteredResources, messageBodies);
+          title = `*Here are the resources you requested:*`;
           attachments = genericResourcesAttachmentTemplate(filteredResources);
         }
         filterAndPostResults(parsedCommand.target_channel_id, parsedCommand.target_user_id, resourceMessage, resourcesTemplateMessage, title, attachments);
