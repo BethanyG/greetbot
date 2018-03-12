@@ -7,11 +7,13 @@ const generateResourcesMessage = (resources, templates) => {
   //   const color = `${resource['sidebar-color']}`;
   //   attachments.push({pretext, title, text, color});
   // });
+  console.log(`resources is ${JSON.stringify(resources)}`);
+  console.log(`templates is ${JSON.stringify(templates)}`);
   for (var template in templates) {
-    let tempLang = templates[template]['language'];
-    let tempLevel = templates[template]['level'];
-    const pretext = `${templates[template]['language-icon']}${templates[template]['level-icon']} *${tempLang} ${tempLevel}*\n${templates[template]['language-blurb']}`;
-    const title = `${templates[template]['language-desc']}`;
+    let tempLang = template['language'];
+    let tempLevel = template['level'];
+    const pretext = `${template['language-icon']}${template['level-icon']} *${tempLang} ${tempLevel}*\n${template['language-blurb']}`;
+    const title = `${template['language-desc']}`;
     let resourceText = [];
     resources.filter(resource => {
       return resource['language'].toLowerCase() === tempLang.toLowerCase() &&
@@ -20,9 +22,9 @@ const generateResourcesMessage = (resources, templates) => {
       let costText = resource['media-cost-desc'] === "FREE" ? '' : `(PAID) ${resource['media-cost']}`;
       resourceText.push(`${resource['media-icon']} ${resource['media-link']} ${resource['media-desc']} ${costText}`);
     });
-    resourceText.push(templates[template]['help_link'], templates[template]['more-questions'], templates[template]['maintainer']);
+    resourceText.push(template['help_link'], template['more-questions'], template['maintainer']);
     const text = resourceText.join("\n\n\n");
-    const color = templates[template]['sidebar-color'];
+    const color = template['sidebar-color'];
     attachments.push({pretext, title, text, color});
   }
   return attachments;

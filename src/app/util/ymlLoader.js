@@ -9,8 +9,9 @@ const messageBodies = []
 // "absolute" returns an absolute path to the file, so YAML doesn't get confused
 glob("**/*.yml", { "cwd": path.join(__dirname, '..', 'routes', 'data', 'slash', 'resources', 'messageAttachments'), 'absolute': true }, function (err, files) {
   files.forEach(file => {
-    if (path.basename(file, '.yml') == 'genericAttachment') continue;
-    messageAttachments.push(YAML.load(path.resolve(file)));
+      if (!(path.basename(file, '.yml') == "genericAttachment")) {
+        messageAttachments.push(YAML.load(path.resolve(file)));
+      }
   });
 });
 

@@ -15,7 +15,7 @@ const filterResources = (resourceList, filters) => {
 const filterTemplates = (resources, messageTemplates) => {
   let toKeep = {};
   resources.forEach(resource => {
-    if (toKeep.hasOwnProperty(resource['language'])a2) {
+    if (toKeep.hasOwnProperty(resource['language'])) {
       if (!toKeep[resource['language']].includes(resource['level'])){
         toKeep[resource['language']].push(resource['level']);
       }

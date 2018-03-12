@@ -2,7 +2,7 @@ const axios = require('axios');
 const qs = require('querystring');
 const postResult = result => console.log(result.data);
 
-const resources = require('util/ymlLoader.js').messageAttachments;
+const resourcesData = require('util/ymlLoader.js').messageAttachments;
 const messageBodies = require('util/ymlLoader.js').messageBodies;
 
 const helpData = require('routes/data/slash/resources/resourcesHelp.js').help;
@@ -23,6 +23,7 @@ const resources = async (req, res) => {
   if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
     switch (parsedCommand.action) {
       case 'list': {
+        console.log(JSON.stringify(resourcesData));
         let resourcesCounted = resourcesData.reduce((count, resource) => {
           count[resource.language.toLowerCase()] = (count[resource.language.toLowerCase()] || 0) + 1;
           return count;
@@ -36,9 +37,9 @@ const resources = async (req, res) => {
         let attachments;
         if (!(Object.keys(parsedCommand.action_arguments).length && parsedCommand.action_arguments.constructor === Object)) {
           title = "*Here is the full list of resources:*";
-          attachments = genericResourcesAttachmentTemplate(resources, messageBodies);
+          attachments = genericResourcesAttachmentTemplate(resourcesData, messageBodies);
         } else {
-          const filteredResources = filterResources(resources, parsedCommand.action_arguments);
+          const filteredResources = filterResources(resourcesData, parsedCommand.action_arguments);
           const filteredBodies = filterBodies(filteredResources, messageBodies);
           title = `*Here are the resources you requested:*`;
           attachments = genericResourcesAttachmentTemplate(filteredResources, filteredBodies);
