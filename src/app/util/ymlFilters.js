@@ -28,10 +28,10 @@ const filterTemplates = (resources, messageTemplates) => {
     let language = messageTemplates[template]['language'].toLowerCase();
     let level = messageTemplates[template]['level'].toLowerCase();
     if ((toKeep.hasOwnProperty(language) && toKeep[language].includes(level))) {
-      delete messageTemplates[template];
+      keptTemplates[template] = messageTemplates[template];
     }
   }
-  return messageTemplates;
+  return keptTemplates;
 }
 
 module.exports = { filterResources, filterTemplates };

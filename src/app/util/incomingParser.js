@@ -49,14 +49,14 @@ const parsePayload = async (req) => {
   if (action_keywords.length > 1) {
     action_keywords = [];
   }
-  console.log(action_arguments.length)
+
   if (action_arguments.length === 1 && action_arguments[0] === "") {
     action_arguments = {};
   } else {
     action_arguments = sortArguments(action_arguments);
   }
-  console.log(action_arguments)
 
+  
   //user_id of the user who typed the slash command
   //If no other info is specified, the Msg should go back to this user on the DM channel_id.
   const default_user_id = await findDmChannel(req.body.user_id);
@@ -112,7 +112,6 @@ const sortArguments = (req_arguments) => {
   let types = [];
   let costs = [];
   req_arguments.forEach(argument => {
-    console.log(argument);
     switch (argument.toLowerCase()) {
       // languages sort
       case 'javascript':
