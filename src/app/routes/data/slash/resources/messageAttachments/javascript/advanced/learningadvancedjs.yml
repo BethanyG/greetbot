@@ -1,0 +1,8 @@
+resource-number: 4
+media-cost: "$0"
+media-cost-desc: "FREE"
+media-type: "website"
+media-icon: ":link:"
+media-link: "<https://johnresig.com/apps/learn|Learning Advanced JavaScript>"
+media-desc: "_What it says in the title:  just the facts._"
+community-rating: ":heavy_plus:"

@@ -1,0 +1,8 @@
+resource-number: 3
+media-cost: "$0"
+media-cost-desc: "FREE"
+media-type: "website"
+media-icon: ":link:"
+media-link: "<https://scotch.io/courses|Scotch.io Theory and Projects>"
+media-desc: "_Code. Eat. Sleep. Loop (TM)._"
+community-rating: ":heavy_plus:"

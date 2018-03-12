@@ -1,0 +1,8 @@
+resource-number: 1
+media-cost: "$39/mo"
+media-cost-desc: "PAID"
+media-type: "video"
+media-icon: ":cinema:"
+media-link: "<https://frontendmasters.com/courses/javascript-hard-parts/|JavaScript the Hard Parts.>"
+media-desc: "Course from Front End Masters. _This will give you a solid understanding of callbacks & higher order functions, closure, asynchronous JavaScript, & object-oriented JavaScript. It's for developers with basic/intermediate knowledge of JavaScript who want to deepen their understanding to take it to the next level._"
+community-rating: ":heavy_plus:"

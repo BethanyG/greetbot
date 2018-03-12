@@ -1,0 +1,8 @@
+resource-number: 3
+media-cost: $0
+media-cost-desc: "FREE"
+media-type: "book"
+media-icon: ":books:"
+media-link: "<https://github.com/getify/You-Dont-Know-JS|You Don't Know JS>"
+media-desc: "_This series is *the* reference for anyone who is eager to understand the fundamentals of the Javascript language. The way it's clearly split between the different paradigms of the language between the different books makes it a lot more accessible than other Javascript 'bibles' can be._"
+community-rating: ":heavy_plus:"

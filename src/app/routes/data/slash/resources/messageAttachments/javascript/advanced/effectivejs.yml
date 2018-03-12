@@ -1,0 +1,8 @@
+resource-number: 2
+media-cost: "$22.97"
+media-cost-desc: "PAID"
+media-type: "book"
+media-icon: ":books:"
+media-link: "<https://www.amazon.com/Effective-JavaScript-Specific-Software-Development/dp/0321812182|Effective JavaScript>"
+media-desc: "Amazon(dot)com  _*Effective JavaScript* is organized around 68 proven approaches for writing better JavaScript, backed by concrete examples. You’ll learn how to choose the right programming style for each project, manage unanticipated problems, & work more successfully with every facet of JavaScript programming from data structures to concurrency._"
+community-rating: ":heavy_plus:"

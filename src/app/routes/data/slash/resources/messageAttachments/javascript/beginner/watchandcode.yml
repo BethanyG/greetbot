@@ -1,0 +1,8 @@
+resource-number: 1
+media-cost: "$0"
+media-cost-desc: "FREE"
+media-type: "video"
+media-icon: ":cinema:"
+media-link: "<https://watchandcode.com/|Watch and Code>"
+media-desc: "_Amazing video tutorials that turn beginners into professional software engineers (TM)._"
+community-rating: ":heavy_plus:"

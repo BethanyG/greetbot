@@ -1,0 +1,8 @@
+resource-number: 4
+media-cost: ($15-$170)
+media-cost-desc: "PAID"
+media-type: "class"
+media-icon: ":school_satchel:"
+media-link: "<https://www.udemy.com/understand-javascript|JavaScript: Understanding the Weird Parts>"
+media-desc: "Course from Udemy.  _An advanced JavaScript course for everyone! Scope, closures, prototypes, 'this', build your own framework, and more._"
+community-rating: ":heavy_plus:"
