@@ -4,7 +4,7 @@ const filterResources = (resourceList, filters) => {
     for (var filter in filters) {
       if (!filters.hasOwnProperty(filter)) continue;
 
-      if (!filters[filter].includes(resource[filter])) {
+      if (!filters[filter].includes(resource[filter].toLowerCase())) {
         keep = false;
       }
     }
