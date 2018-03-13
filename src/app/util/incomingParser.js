@@ -1,6 +1,7 @@
 const axios = require('axios');
 const postResult = result => console.log(result.data);
 const qs = require('querystring');
+const sortArguments = require('util/sortArguments').sortArguments;
 
 
 const parsePayload = async (req) => {
@@ -56,7 +57,6 @@ const parsePayload = async (req) => {
     action_arguments = sortArguments(action_arguments);
   }
 
-  
   //user_id of the user who typed the slash command
   //If no other info is specified, the Msg should go back to this user on the DM channel_id.
   const default_user_id = await findDmChannel(req.body.user_id);
@@ -105,91 +105,5 @@ const findDmChannel = async (userId) => {
 
   return req_id;
 };
-
-const sortArguments = (req_arguments) => {
-  let languages = [];
-  let levels = [];
-  let types = [];
-  let costs = [];
-  req_arguments.forEach(argument => {
-    switch (argument.toLowerCase()) {
-      // languages sort
-      case 'javascript':
-      case 'js': {
-        languages.push("javascript");
-        break;
-      }
-      case 'python': {
-        languages.push("python");
-        break;
-      }
-      case 'ruby': {
-        languages.push("ruby");
-        break;
-      }
-
-      // levels sort
-      case 'beginner':
-      case 'beg': {
-        levels.push("beginner");
-        break;
-      }
-      case 'intermediate':
-      case 'int':
-      case 'inter': {
-        levels.push("intermediate");
-        break;
-      }
-      case 'advanced':
-      case 'adv':
-      case 'moar': {
-        levels.push("advanced");
-        break;
-      }
-
-      // types sort
-      case 'book': {
-        types.push("book");
-        break;
-      }
-      case 'tutorial': {
-        types.push("tutorial");
-        break;
-      }
-      case 'class': {
-        types.push("class");
-        break;
-      }
-      case 'video': {
-        types.push("video");
-        break;
-      }
-
-      // costs sort
-      case 'free': {
-        costs.push('free');
-        break;
-      }
-      case 'paid': {
-        costs.push('paid');
-        break;
-      }
-    }
-  });
-  let returnArgs = {};
-  if (languages.length) {
-    returnArgs["language"] = languages;
-  }
-  if (levels.length) {
-    returnArgs["level"] = levels;
-  }
-  if (types.length) {
-    returnArgs["media-type"] = types;
-  }
-  if (costs.length) {
-    returnArgs["media-cost-desc"] = costs;
-  }
-  return returnArgs;
-}
 
 module.exports = { parsePayload };

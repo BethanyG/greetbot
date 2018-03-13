@@ -5,8 +5,8 @@ const postResult = result => console.log(result.data);
 const resourcesData = require('util/ymlLoader.js').messageAttachments;
 const messageBodies = require('util/ymlLoader.js').messageBodies;
 
-const helpData = require('routes/data/slash/resources/resourcesHelp.js').help;
-const resourcesTemplateMessage = require('routes/data/slash/resources/resourcesMessage.js').message;
+const helpData = require('routes/data/slash/resources/messageTemplates/resourcesHelp.js').help;
+const resourcesTemplateMessage = require('routes/data/slash/resources/messageTemplates/resourcesMessage.js').message;
 const genericResourcesAttachmentTemplate = require('routes/data/slash/resources/messageTemplates/genericResourcesAttachmentTemplate.js').generateResourcesMessage;
 const incomingParser = require('util/incomingParser.js');
 
