@@ -1,0 +1,8 @@
+resource-number: 2
+media-cost: $0
+media-cost-desc: "FREE"
+media-type: "class"
+media-icon: ":school_satchel:"
+media-link: "<https://www.edx.org/course/introduction-computational-thinking-data-mitx-6-00-2x-6|Intro to Computational Thinking and Data Science>"
+media-desc: "*MITx (through Edx.org)*  _6.00.2x will teach you how to use computation to accomplish a variety of goals & provides you with a brief introduction to a variety of topics in computational problem solving . The course is aimed at students with some prior programming experience in Python and a rudimentary knowledge of computational complexity. You will spend a considerable amount of time writing programs to implement the concepts. For example, you will write a program that will simulate a robot vacuum cleaning a room or will model the population dynamics of viruses replicating and drug treatments in a patient's body._"
+community-rating: ":heavy_plus:"

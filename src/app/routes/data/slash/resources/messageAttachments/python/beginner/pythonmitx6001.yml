@@ -1,0 +1,8 @@
+resource-number: 4
+media-cost: $0
+media-cost-desc: "FREE"
+media-type: "class"
+media-icon: ":school_satchel:"
+media-link: "<https://www.edx.org/course/introduction-computer-science-mitx-6-00-1x-11|Intro to CS & Programming Using Python>"
+media-desc: "**MIT (through Edx.org)** _Self-paced and online.  This is a difficult and fast-paced class.  But very very ver worth your time.  Hands down the best class out there for learning CS and Python._"
+community-rating: ":heavy_plus:"

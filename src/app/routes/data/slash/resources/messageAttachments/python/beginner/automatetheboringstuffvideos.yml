@@ -1,0 +1,8 @@
+resource-number: 3
+media-cost: $0
+media-cost-desc: "FREE"
+media-type: "video"
+media-icon: ":cinema:"
+media-link: "<https://www.youtube.com/channel/UCRjTEkDLPREZNlREZMlotMQ|Automate the Boring Stuff w/Python Videos>"
+media-desc: "_*Al Sweigart* Video class version of his excellent book 'How to Automate the Boring Stuff with Python'.  Book available online for free at <https://automatetheboringstuff.com|AutomatetheBoringStuff(dot)com>._"
+community-rating: ":heavy_plus:"

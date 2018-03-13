@@ -1,0 +1,8 @@
+resource-number: 3
+media-cost: $25.59
+media-cost-desc: "PAID"
+media-type: "book"
+media-icon: ":books:"
+media-link: "<https://effectivepython.com|Effective Python>"
+media-desc: "*Brett Slatkin*  _This book contains 59 specific ways to improve writing Pythonic code. At 227 pages, it is a very brief overview of some of the most commons adapations programmers need to make to become efficient intermediate level Python programmers._"
+community-rating: ":heavy_plus:"

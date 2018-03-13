@@ -1,0 +1,8 @@
+resource-number: 4
+media-cost: $0
+media-cost-desc: "FREE"
+media-type: "book"
+media-icon: ":books:"
+media-link: "<https://github.com/RafeKettler/magicmethods/blob/master/magicmethods.pdf|Pythons Magic Methods>"
+media-desc: "*Rafe Kettler*  _This is a collection of blog posts in PDF form by Rafe Kettler which explain ‘magic methods’ in Python. Magic methods are surrounded by double underscores (i.e. __init__) & can make classes & objects behave in different & magical ways._"
+community-rating: ":heavy_plus:"

@@ -1,0 +1,8 @@
+resource-number: 1
+media-cost: $0
+media-cost-desc: "FREE"
+media-type: "video"
+media-icon: ":cinema:"
+media-link: "<https://www.safaribooksonline.com/library/view/intermediate-python-programming/9781491954935|Intermediate Python Programming>"
+media-desc: "Safari (Free Trial Available)  _*Jessica McKellar*  What do Scrabble cheaters, Shakespearean sonnets, Twitter, and the Astronomy Picture of the Day have to do with Python software programming? For software impresario Jessica McKellar, they’re playful tools for teaching intermediate-level Python programming techniques. During her time as an organizer of the Boston Python User Group (one of the world’s largest Python groups), she taught hundreds of Python wannabees to happily program like pros. She uses that experience to benefit the next generation of Pythonistas in this follow-up to her widely popular Introduction to Python video._"
+community-rating: ":heavy_plus:"
