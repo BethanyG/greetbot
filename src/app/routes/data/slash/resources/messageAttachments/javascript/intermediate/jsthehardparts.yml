@@ -1,4 +1,6 @@
 resource-number: 1
+language: 'javascript'
+level: 'intermediate'
 media-cost: "$39/mo"
 media-cost-desc: "PAID"
 media-type: "video"

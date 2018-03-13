@@ -2,13 +2,16 @@ const axios = require('axios');
 const qs = require('querystring');
 const postResult = result => console.log(result.data);
 
-const resourcesData = require('util/ymlLoader.js').resources;
-const messageTemplates = require('util/ymlLoader.js').messageTemplates;
+const resourcesData = require('util/ymlLoader.js').messageAttachments;
+const messageBodies = require('util/ymlLoader.js').messageBodies;
 
 const helpData = require('routes/data/slash/resources/resourcesHelp.js').help;
 const resourcesTemplateMessage = require('routes/data/slash/resources/resourcesMessage.js').message;
-const genericResourcesAttachmentTemplate = require('routes/data/slash/resources/genericResourcesAttachmentTemplate.js').generateResourcesMessage;
+const genericResourcesAttachmentTemplate = require('routes/data/slash/resources/messageTemplates/genericResourcesAttachmentTemplate.js').generateResourcesMessage;
 const incomingParser = require('util/incomingParser.js');
+
+const filterResources = require('util/ymlFilters.js').filterResources;
+const filterBodies = require('util/ymlFilters.js').filterTemplates;
 
 const resources = async (req, res) => {
   console.log(`Received slash command ${req.body.command} from ${req.body.user_id} with ${req.body.text}.`);
@@ -20,6 +23,7 @@ const resources = async (req, res) => {
   if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
     switch (parsedCommand.action) {
       case 'list': {
+        console.log(JSON.stringify(resourcesData));
         let resourcesCounted = resourcesData.reduce((count, resource) => {
           count[resource.language.toLowerCase()] = (count[resource.language.toLowerCase()] || 0) + 1;
           return count;
@@ -31,16 +35,14 @@ const resources = async (req, res) => {
       case 'post': {
         let title;
         let attachments;
-        if (!parsedCommand.action_arguments.length) {
+        if (!(Object.keys(parsedCommand.action_arguments).length && parsedCommand.action_arguments.constructor === Object)) {
           title = "*Here is the full list of resources:*";
-          attachments = genericResourcesAttachmentTemplate(resourcesData.resources);
+          attachments = genericResourcesAttachmentTemplate(resourcesData, messageBodies);
         } else {
-          const filteredResources = resourcesData.resources.filter(resource => {
-            return !(!parsedCommand.action_arguments.includes(resource.language.toLowerCase()) ||
-                    !parsedCommand.action_arguments.includes(resource.level.toLowerCase()));
-          });
-          title = `*Here are the topics for ${parsedCommand.action_arguments.join(" ")}*`;
-          attachments = genericResourcesAttachmentTemplate(filteredResources);
+          const filteredResources = filterResources(resourcesData, parsedCommand.action_arguments);
+          const filteredBodies = filterBodies(filteredResources, messageBodies);
+          title = `*Here are the resources you requested:*`;
+          attachments = genericResourcesAttachmentTemplate(filteredResources, filteredBodies);
         }
         filterAndPostResults(parsedCommand.target_channel_id, parsedCommand.target_user_id, resourceMessage, resourcesTemplateMessage, title, attachments);
         res.sendStatus(200);
