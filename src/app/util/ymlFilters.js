@@ -1,11 +1,11 @@
 const filterResources = (resourceList, filters) => {
   return resourceList.filter(resource => {
-    let keep = false;
+    let keep = true;
     for (var filter in filters) {
       if (!filters.hasOwnProperty(filter)) continue;
 
-      if (filters[filter].includes(resource[filter])) {
-        keep = true;
+      if (!filters[filter].includes(resource[filter])) {
+        keep = false;
       }
     }
     return keep;
