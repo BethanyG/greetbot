@@ -22,8 +22,9 @@ const generateResourcesMessage = (resources, templates) => {
     });
     resourceText.push(templates[template]['help_link'], templates[template]['more-questions'], templates[template]['maintainer']);
     const text = resourceText.join("\n\n\n");
+    const mrkdwn_in = ["text", "pretext"];
     const color = templates[template]['sidebar-color'];
-    attachments.push({pretext, title, text, color});
+    attachments.push({pretext, title, text, mrkdwn_in, color});
   }
   return attachments;
 };
