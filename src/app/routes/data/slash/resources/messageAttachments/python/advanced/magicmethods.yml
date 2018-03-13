@@ -5,6 +5,6 @@ media-cost: $0
 media-cost-desc: "FREE"
 media-type: "book"
 media-icon: ":books:"
-media-link: "<https://github.com/RafeKettler/magicmethods/blob/master/magicmethods.pdf|Pythons Magic Methods>"
-media-desc: "*Rafe Kettler*  _A collection of detailed blog posts in PDF form which explain ‘magic methods’ in Python. Magic methods are surrounded by double underscores (duderscores) & can make classes & objects behave in different & :magigwand: magical ways.  Want to bend Python to your will but don't want to become a C programmer?  Playing with magic methods might be a good place to start._"
+media-link: "<https://github.com/RafeKettler/magicmethods/blob/master/magicmethods.pdf|Python's Magic Methods>"
+media-desc: "*Rafe Kettler*  _A collection of detailed blog posts in PDF form which explain ‘magic methods’ in Python. Magic methods are surrounded by double underscores (duderscores) & can make classes & objects behave in different & :magicwand: magical ways.  Want to bend Python to your will but don't want to become a C programmer?  Playing with magic methods might be a good place to start._"
 community-rating: ":heavy_plus:"
