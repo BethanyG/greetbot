@@ -1,4 +1,6 @@
 resource-number: 2
+language: 'python'
+level: 'intermediate'
 media-cost: $0
 media-cost-desc: "FREE"
 media-type: "class"

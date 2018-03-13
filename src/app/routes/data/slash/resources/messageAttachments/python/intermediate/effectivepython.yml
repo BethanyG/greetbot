@@ -1,4 +1,6 @@
 resource-number: 3
+language: 'python'
+level: 'intermediate'
 media-cost: $25.59
 media-cost-desc: "PAID"
 media-type: "book"

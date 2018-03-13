@@ -1,4 +1,6 @@
 resource-number: 4
+language: 'python'
+level: 'advanced'
 media-cost: $0
 media-cost-desc: "FREE"
 media-type: "book"
