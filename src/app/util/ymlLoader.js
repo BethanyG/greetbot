@@ -17,7 +17,9 @@ glob("**/*.yml", { "cwd": path.join(__dirname, '..', 'routes', 'data', 'slash', 
 
 glob("**/*.yml", { "cwd": path.join(__dirname, '..', 'routes', 'data', 'slash', 'resources', 'messageBodies'), 'absolute': true }, function (err, files) {
   files.forEach(file => {
-    messageBodies[path.basename(file, '.yml')] = YAML.load(path.resolve(file));
+    if (!(path.basename(file, '.yml') == "genericBody")) {
+      messageBodies[path.basename(file, '.yml')] = YAML.load(path.resolve(file));
+    }
   });
 });
 
