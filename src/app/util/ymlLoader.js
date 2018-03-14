@@ -1,5 +1,24 @@
 const YAML = require('yamljs');
 const path = require('path');
-const resourcesData = YAML.load(path.join(__dirname, '..', 'routes', 'data', 'slash', 'resources', 'resourcesData.yml'));
+const glob = require('glob');
 
-module.exports = { resourcesData };
+const messageAttachments = []
+const messageBodies = {}
+
+// "cwd" sets the initial directory to start looking in
+// "absolute" returns an absolute path to the file, so YAML doesn't get confused
+glob("**/*.yml", { "cwd": path.join(__dirname, '..', 'routes', 'data', 'slash', 'resources', 'messageAttachments'), 'absolute': true }, function (err, files) {
+  files.forEach(file => {
+      if (!(path.basename(file, '.yml') == "genericAttachment")) {
+        messageAttachments.push(YAML.load(path.resolve(file)));
+      }
+  });
+});
+
+glob("**/*.yml", { "cwd": path.join(__dirname, '..', 'routes', 'data', 'slash', 'resources', 'messageBodies'), 'absolute': true }, function (err, files) {
+  files.forEach(file => {
+    messageBodies[path.basename(file, '.yml')] = YAML.load(path.resolve(file));
+  });
+});
+
+module.exports = { messageAttachments, messageBodies };

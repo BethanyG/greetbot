@@ -1,6 +1,7 @@
 const axios = require('axios');
 const postResult = result => console.log(result.data);
 const qs = require('querystring');
+const sortArguments = require('util/sortArguments').sortArguments;
 
 
 const parsePayload = async (req) => {
@@ -49,8 +50,11 @@ const parsePayload = async (req) => {
   if (action_keywords.length > 1) {
     action_keywords = [];
   }
+
   if (action_arguments.length === 1 && action_arguments[0] === "") {
-    action_arguments = [];
+    action_arguments = {};
+  } else {
+    action_arguments = sortArguments(action_arguments);
   }
 
   //user_id of the user who typed the slash command
