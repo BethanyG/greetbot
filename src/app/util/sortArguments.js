@@ -11,7 +11,9 @@ const sortArguments = (req_arguments) => {
         languages.push("javascript");
         break;
       }
-      case 'python': {
+      case 'python':
+      case 'ni!':
+      case 'spam': {
         languages.push("python");
         break;
       }
@@ -54,6 +56,10 @@ const sortArguments = (req_arguments) => {
       }
       case 'video': {
         types.push("video");
+        break;
+      }
+      case 'website': {
+        types.push("website");
         break;
       }
 
