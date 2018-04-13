@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= title %></title>
+</head>
+<body>
+	<h1>Here is a list of resources</h1>
+	<ul>
+		<% resources.forEach(function(resource) { %>
+		<li><a href="/resources/<%= resource.name %>"><%= resource.name %></a></li>
+		<% }); %>
+	</ul>
+
+</body>
+</html>

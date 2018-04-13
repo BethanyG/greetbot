@@ -1,14 +1,21 @@
+/* jshint esversion: 6 */
 require('dotenv').config();
 require('app-module-path').addPath(__dirname + '/app');
 
-const app = require('express')();
+const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const initalEvent = require('routes/endpoints/events/initial');
 const slashWelcome = require('routes/endpoints/slash/welcome/welcome');
 const slashResources = require('routes/endpoints/slash/resources/resources');
 const initalResponse = require('routes/data/interactive/initialResponse');
+const resourceData = require('util/ymlLoader').messageAttachments;
 
-//const app = express();
+const app = express();
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+// app.use(express.static(__dirname + '/public'));
 
 /*
  * parse application/x-www-form-urlencoded && application/json
@@ -17,9 +24,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  res.send('<h2>The Welcome/Code of Conduct app for CodeBuddies is running.</h2> <p>Follow the' +
-  ' instructions in the README on GitHub to clone/configure this Slack App & your' +
-  ' environment variables.</p>');
+  res.render('index', { title: 'CodeBuddies Greetbot',
+    headline: 'The Welcome/Code of Conduct app for CodeBuddies is running.',
+    paragraph: 'Follow the instructions in the README on GitHub to clone/configure this Slack App & your' +
+    ' environment variables.'
+  });
+  // res.send('<h2>The Welcome/Code of Conduct app for CodeBuddies is running.</h2> <p>Follow the' +
+  // ' instructions in the README on GitHub to clone/configure this Slack App & your' +
+  // ' environment variables.</p>');
+});
+
+app.get('/resources', (req, res) => {
+  resources = resourceData;
+  res.render('resources/index', { title: 'Greetbot Resources', resources: resources });
+});
+
+app.get('/resources/:name', (req, res) => {
+  resource = resourceData.filter(resource => {
+    return resource.name == req.params.name;
+  })[0];
+  res.render('resources/show', { title: resource.name, resource: resource });
 });
 
 /*
@@ -28,7 +52,7 @@ app.get('/', (req, res) => {
  *   - url_verification: Returns challenge token sent when present.
  *   - event_callback: Confirm verification token & handle `team_join` event.
  */
-app.post('/events', (req, res) => { initalEvent.eventWelcome(req, res) });
+app.post('/events', (req, res) => { initalEvent.eventWelcome(req, res); });
 
 /*
  * Endpoints to receive various slash commands from Slack's API.
@@ -37,15 +61,15 @@ app.post('/events', (req, res) => { initalEvent.eventWelcome(req, res) });
  *   -Each function attempts to confirm a verification token & then executes various commmand scenarios.
  *   -Command extentions for each slash command can be added via case statements in the various command files.
  */
-app.post('/welcome', (req, res) => { slashWelcome.welcome(req, res) });
+app.post('/welcome', (req, res) => { slashWelcome.welcome(req, res); });
 
-app.post('/resources', (req, res) => { slashResources.resources(req, res) });
+app.post('/resources', (req, res) => { slashResources.resources(req, res); });
 
 /*
  * Endpoint to receive events from interactive welcome message on Slack. Checks the
  * verification token before continuing.
  */
-app.post('/interactive-message', (req, res) => { initalResponse.welcomeResponse(req, res) });
+app.post('/interactive-message', (req, res) => { initalResponse.welcomeResponse(req, res); });
 
 
 app.listen(process.env.PORT, () => {

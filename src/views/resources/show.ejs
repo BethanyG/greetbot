@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= title %></title>
+</head>
+<body>
+	<h1>Info about this resource</h1>
+	<h2><span class="capitalize"><%= resource.language %></span>, <span class="capitalize"><%= resource.level %></span></h2>
+	<ul>
+		<li>Cost: <%= resource["media-cost-desc"] %><%= resource["media-cost-desc"] === "FREE" ? '' : ' ('+resource["media-cost"]+')' %></li>
+		<li>Media icon: <span class="emoji"><%= resource["media-icon"] %></span></li>
+		<li>Link: <span class="link"><%= resource["media-link"] %></span></li>
+		<li>Description: <span class="description"><%= resource["media-desc"] %></span></li>
+		<li>Community rating: <span class="emoji"><%= resource["community-rating"] %></span></li>
+	</ul>
+
+	<p><a href="/resources/">Back</a></p>
+
+	<script type="text/javascript">
+		/* jshint esversion: 6 */
+		const emoji_map = {
+			":heavy_plus:": "\u2795",
+			":cinema:": "\uD83C\uDFA6",
+			":books:": "\uD83D\uDCDA",
+			":link:": "\uD83D\uDD17",
+			":school_satchel:": "\uD83C\uDF92",
+			":star:": "\u2B50",
+			":white_check_mark:": "\u2705",
+			":question:": "\u2753",
+		};
+		const capitalize = Array.from(document.querySelectorAll('.capitalize'));
+		capitalize.forEach(word => {
+			word.innerText = word.innerText.charAt(0).toUpperCase() + word.innerText.slice(1);
+		});
+		const emojis = Array.from(document.querySelectorAll('.emoji'));
+		emojis.forEach(emoji => {
+			emoji.innerText = emoji_map[emoji.innerText];
+		});
+		const links = Array.from(document.querySelectorAll('.link'));
+		links.forEach(link => {
+			link.innerHTML = link.innerText.replace(/<([^|]*?)\|(.*?)>/g, "<a href=\"$1\">$2</a>");
+		});
+		const descriptions = Array.from(document.querySelectorAll('.description'));
+		descriptions.forEach(description => {
+			description.innerHTML = description.innerText.replace(/\*(.*?)\*/g, "<b>$1</b>")
+															.replace(/\_(.*?)\_/g, "<em>$1</em>");
+		});
+	</script>
+
+</body>
+</html>
