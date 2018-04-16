@@ -43,7 +43,8 @@ app.get('/resources/:name', (req, res) => {
   resource = resourceData.filter(resource => {
     return resource.name == req.params.name;
   })[0];
-  res.render('resources/show', { title: resource.name, resource: resource });
+  title = resource ? resource.name : "New resource"
+  res.render('resources/show', { title: title, resource: resource });
 });
 
 /*

@@ -11,52 +11,7 @@
 		</div>
 		<div class="row">
 			<div class="col-sm">
-				<form>
-					<div class="form-group">
-						<label for="resourceNumber">Resource Number</label>
-						<input type="text" class="form-control" id="resourceNumber" name="resource['resource-number']" value="<%= resource["resource-number"] %>" />
-					</div>
-					<div class="form-group">
-						<label for="resourceLanguage">Language</label>
-						<input type="text" class="form-control" id="resourceLanguage" name="resource['language']" value="<%= resource["language"] %>" />
-					</div>
-					<div class="form-group">
-						<label for="resourceLevel">Level</label>
-						<input type="text" class="form-control" id="resourceLevel" name="resource['level']" value="<%= resource["level"] %>" />
-					</div>
-					<div class="form-group">
-						<label for="resourceMediaCost">Media Cost</label>
-						<input type="text" class="form-control" id="resourceMediaCost" name="resource['media-cost']" value="<%= resource["media-cost"] %>" />
-					</div>
-					<div class="form-group">
-						<label for="resourceMediaCostDesc">Media Cost Desc</label>
-						<input type="text" class="form-control" id="resourceMediaCostDesc" name="resource['media-cost-desc']" value="<%= resource["media-cost-desc"] %>" />
-					</div>
-					<div class="form-group">
-						<label for="resourceMediaType">Media Type</label>
-						<input type="text" class="form-control" id="resourceMediaType" name="resource['media-type']" value="<%= resource["media-type"] %>" />
-					</div>
-					<div class="form-group">
-						<label for="resourceMediaIcon">Media Icon</label>
-						<input type="text" class="form-control" id="resourceMediaIcon" name="resource['media-icon']" value="<%= resource["media-icon"] %>" />
-					</div>
-					<div class="form-group">
-						<label for="resourceMediaLink">Media Link</label>
-						<input type="text" class="form-control" id="resourceMediaLink" name="resource['media-link']" value="<%= resource["media-link"] %>" />
-					</div>
-					<div class="form-group">
-						<label for="resourceMediaDesc">Description</label>
-						<input type="text" class="form-control" id="resourceMediaDesc" name="resource['media-desc']" value="<%= resource["media-desc"] %>" />
-					</div>
-					<div class="form-group">
-						<label for="resourceCommunityRating">Community Rating</label>
-						<input type="text" class="form-control" id="resourceCommunityRating" name="resource['community-rating']" value="<%= resource["community-rating"] %>" />
-					</div>
-					<div class="form-group">
-						<label for="resourceName">File Name</label>
-						<input type="text" class="form-control" id="resourceName" name="resource['name']" value="<%= resource["name"] %>" />
-					</div>
-				</form>
+				<%- include partials/edit_form %>
 			</div>
 			<div class="col-sm">
 				<p>this is the result</p>
@@ -71,14 +26,7 @@
 	<div class="w-50 result">
 		<p>this is the result</p>
 	</div>
-	<h2><span class="capitalize"><%= resource.language %></span>, <span class="capitalize"><%= resource.level %></span></h2>
-	<ul>
-		<li>Cost: <%= resource["media-cost-desc"] %><%= resource["media-cost-desc"] === "FREE" ? '' : ' ('+resource["media-cost"]+')' %></li>
-		<li>Media icon: <span class="emoji"><%= resource["media-icon"] %></span></li>
-		<li>Link: <span class="link"><%= resource["media-link"] %></span></li>
-		<li>Description: <span class="description"><%= resource["media-desc"] %></span></li>
-		<li>Community rating: <span class="emoji"><%= resource["community-rating"] %></span></li>
-	</ul>
+
 
 	<p><a href="/resources/">Back</a></p>
 
