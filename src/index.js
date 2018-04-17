@@ -5,6 +5,8 @@ require('app-module-path').addPath(__dirname + '/app');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const YAML = require('yamljs');
+const fs = require('fs');
 const initalEvent = require('routes/endpoints/events/initial');
 const slashWelcome = require('routes/endpoints/slash/welcome/welcome');
 const slashResources = require('routes/endpoints/slash/resources/resources');
@@ -35,17 +37,28 @@ app.get('/', (req, res) => {
 });
 
 app.get('/resources', (req, res) => {
-  resources = resourceData;
+  const resources = resourceData;
   res.render('resources/index', { title: 'Greetbot Resources', resources: resources });
 });
 
 app.get('/resources/:name', (req, res) => {
-  resource = resourceData.filter(resource => {
+  const resource = resourceData.filter(resource => {
     return resource.name == req.params.name;
   })[0];
-  title = resource ? resource.name : "New resource"
+  const title = resource ? resource.name : "New resource"
   res.render('resources/show', { title: title, resource: resource });
 });
+
+app.post('/resources/:name', (req, res) => {
+  const resource = req.body.resource;
+  const ymltext = YAML.stringify(resource, 2);
+  fs.writeFileSync(`${__dirname}/app/routes/data/slash/resources/messageAttachments/${resource.language}/${resource.level}/${resource.name}.yml`, ymltext, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  })
+  res.redirect('/resources');
+})
 
 /*
  * Endpoint to receive events from Slack's Events API.
