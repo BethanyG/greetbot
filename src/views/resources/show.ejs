@@ -77,8 +77,8 @@
 			const current_text = edit_field.value;
 			let new_text = current_text;
 			new_text = convert_emoji(new_text);
-			new_text = convert_styles(new_text);
 			new_text = convert_to_link(new_text);
+			new_text = convert_styles(new_text);
 			read_field.innerHTML = new_text;
 			generateFilePath();
 		}
