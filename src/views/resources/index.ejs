@@ -11,8 +11,12 @@
 		<% }); %>
 	</ul>
 
-	<form action="/resources/<%= resource.name %>">
-
+	<form action="/resource/new/" method="POST">
+		<div class="form-group">
+			<label for="resourceName">New resource</label>
+			<input type="text" class="form-control" id="resourceName" name="resource['name']" />
+		</div>
+		<button type="submit" class="btn btn-primary">Create New</button>
 	</form>
 
 </body>
