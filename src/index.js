@@ -18,7 +18,6 @@ const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-// app.use(express.static(__dirname + '/public'));
 
 // parse application/x-www-form-urlencoded && application/json
 app.use(bodyParser.urlencoded({ extended: true }));
