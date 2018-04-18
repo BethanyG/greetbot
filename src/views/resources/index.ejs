@@ -16,18 +16,18 @@
 				<div class="card mb-3">
 					<div class="card-header"><%= resourceLang.key %></div>
 					<div class="card-body">
-						<% resourceLang.values.forEach(function(resourceLevel) { %>
-							<div class="card-deck">
+						<div class="card-deck">
+							<% resourceLang.values.forEach(function(resourceLevel) { %>
 								<div class="card mb-3" style="max-width: 20rem;">
 									<div class="card-header"><%= resourceLevel.key %></div>
-									<div class="card-body">
+									<ul class="list-group list-group-flush">
 										<% resourceLevel.values.forEach(function(resource) { %>
-											<p class="card-text"><a href="/resources/<%= resource.name %>"><%= resource.name %></a></p>
+											<li class="list-group-item"><a href="/resources/<%= resource.name %>"><%= resource.name %></a></li>
 										<% }); %>
-									</div>
+									</ul>
 								</div>
-							</div>
-						<% }); %>
+							<% }); %>
+						</div>
 					</div>
 				</div>
 			</div>
