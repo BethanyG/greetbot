@@ -12,6 +12,8 @@ const slashWelcome = require('routes/endpoints/slash/welcome/welcome');
 const slashResources = require('routes/endpoints/slash/resources/resources');
 const initalResponse = require('routes/data/interactive/initialResponse');
 const resourceData = require('util/ymlLoader').messageAttachments;
+const groupBy = require('util/groupBy').groupBy;
+const groupByArray = require('util/groupBy').groupByArray;
 
 const app = express();
 
@@ -31,14 +33,15 @@ app.get('/', (req, res) => {
     paragraph: 'Follow the instructions in the README on GitHub to clone/configure this Slack App & your' +
     ' environment variables.'
   });
-  // res.send('<h2>The Welcome/Code of Conduct app for CodeBuddies is running.</h2> <p>Follow the' +
-  // ' instructions in the README on GitHub to clone/configure this Slack App & your' +
-  // ' environment variables.</p>');
 });
 
 app.get('/resources', (req, res) => {
-  const resources = resourceData;
-  res.render('resources/index', { title: 'Greetbot Resources', resources: resources });
+  const resourcesByLang = groupByArray(resourceData, 'language');
+  const groupedResources = resourcesByLang.map( (lang) => {
+    lang.values = groupByArray(lang.values, 'level');
+    return lang;
+  });
+  res.render('resources/index', { title: 'Greetbot Resources', groupedResources: groupedResources });
 });
 
 app.get('/resources/:name', (req, res) => {
@@ -52,7 +55,7 @@ app.get('/resources/:name', (req, res) => {
 app.post('/resources/:name', (req, res) => {
   const resource = req.body.resource;
   const ymltext = YAML.stringify(resource, 2);
-  fs.writeFileSync(`${__dirname}/app/routes/data/slash/resources/messageAttachments/${resource.language}/${resource.level}/${resource.name}.yml`, ymltext, (err) => {
+  fs.writeFile(path.resolve(`${__dirname}`,'app','routes','data','slash','resources','messageAttachments',resource.language,resource.level, `${resource.name}.yml`), ymltext, (err) => {
     if (err) {
       console.log(err);
     }
