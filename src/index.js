@@ -12,7 +12,6 @@ const slashWelcome = require('routes/endpoints/slash/welcome/welcome');
 const slashResources = require('routes/endpoints/slash/resources/resources');
 const initalResponse = require('routes/data/interactive/initialResponse');
 const resourceData = require('util/ymlLoader').messageAttachments;
-const groupBy = require('util/groupBy').groupBy;
 const groupByArray = require('util/groupBy').groupByArray;
 
 const app = express();
