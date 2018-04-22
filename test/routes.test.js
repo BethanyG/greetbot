@@ -22,4 +22,44 @@ describe('Greetbot routes testing', function () {
         });
     });
   });
+
+  describe('#GET /resources', function() {
+    it('should load a resources index page', function (done) {
+      request(greetbot).get('/resources')
+        .end(function (err, res) {
+          if (err) { console.log(err); }
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+
+    it('should contain some text', function (done) {
+      request(greetbot).get('/resources')
+        .end(function (err, res) {
+          if (err) { console.log(err); }
+          expect(res.text.length).to.not.equal(0);
+          done();
+        });
+    });
+  });
+
+  describe('#GET /resources/:name', function() {
+    it('should load a resources show page', function (done) {
+      request(greetbot).get('/resources/effectivejs')
+        .end(function (err, res) {
+          if (err) { console.log(err); }
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+
+    it('should contain some text', function (done) {
+      request(greetbot).get('/resources/effectivejs')
+        .end(function (err, res) {
+          if (err) { console.log(err); }
+          expect(res.text.length).to.not.equal(0);
+          done();
+        });
+    });
+  });
 });
