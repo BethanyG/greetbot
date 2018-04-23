@@ -1,0 +1,10 @@
+resource-number: 2
+language: 'javascript'
+level: 'beginner'
+media-cost: "$0"
+media-cost-desc: "FREE"
+media-type: "tutorial"
+media-icon: ":school_satchel:"
+media-link: "<https://javascript30.com|Wes Bos JavaScript30>"
+media-desc: "_Build things. Lots of things. Build 1,000 things. Keep it up and don't stop. Seriously. This has always been my advice. Just put in the work and you will get better. *30 projects in 30 days*._"
+community-rating: ":heavy_plus:"

@@ -1,0 +1,10 @@
+resource-number: 1
+language: 'python'
+level: 'intermediate'
+media-cost: $0
+media-cost-desc: "FREE"
+media-type: "video"
+media-icon: ":cinema:"
+media-link: "<https://www.safaribooksonline.com/library/view/intermediate-python-programming/9781491954935|Intermediate Python Programming Safari>"
+media-desc: "(Free 10-day Trial Available) *Jessica McKellar*  _Is head of development at Dropbox, & organized the Boston Python User Group (one of the world's largest). At Boston Python, she taught hundreds of wannabees to happily program like pros. What do Scrabble cheaters, Shakespearean sonnets, Twitter, & the Astronomy Picture of the Day have to do with software programming? For Jessica, they’re playful tools for teaching intermediate-level Python techniques to the next generation of Pythonistas in this engaging video._"
+community-rating: ":heavy_plus:"

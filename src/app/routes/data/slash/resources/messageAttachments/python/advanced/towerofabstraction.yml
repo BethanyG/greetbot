@@ -1,0 +1,10 @@
+resource-number: 2
+language: 'python'
+level: 'advanced'
+media-cost: $0
+media-cost-desc: "FREE"
+media-type: "video"
+media-icon: ":cinema:"
+media-link: "<https://www.youtube.com/watch?v=zhpWhkW8kcc|The Tower of Abstraction>"
+media-desc: "*Alex Martelli* _Leads tech support for Google Cloud & wrote 'Python in a Nutshell' from O'Reilly. Abstraction is a powerful servant, but a dangerous master. We code, design, think, debug ... on a tower of abstractions. Spolsky's Law says *all abstractions leak*. Alex explores *why* they leak, why it's a problem, & what you can do about it. He also covers why sometimes abstractions *should* leak & how best to produce & consume abstraction layers._"
+community-rating: ":heavy_plus:"

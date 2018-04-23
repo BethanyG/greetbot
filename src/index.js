@@ -1,22 +1,63 @@
+/* jshint esversion: 6 */
 require('dotenv').config();
+require('app-module-path').addPath(`${__dirname}/app`);
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const onboard = require('./onboard');
+const path = require('path');
+const YAML = require('yamljs');
+const fs = require('fs');
+const initalEvent = require('routes/endpoints/events/initial');
+const slashWelcome = require('routes/endpoints/slash/welcome/welcome');
+const slashResources = require('routes/endpoints/slash/resources/resources');
+const initalResponse = require('routes/data/interactive/initialResponse');
+const resourceData = require('util/ymlLoader').messageAttachments;
+const groupByArray = require('util/groupBy').groupByArray;
 
 const app = express();
 
-/*
- * parse application/x-www-form-urlencoded && application/json
- */
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// parse application/x-www-form-urlencoded && application/json
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  res.send('<h2>The Welcome/Terms of Service app is running</h2> <p>Follow the' +
-  ' instructions in the README to configure the Slack App and your' +
-  ' environment variables.</p>');
+  res.render('index', {
+    title: 'CodeBuddies Greetbot',
+    headline: 'The Welcome/Code of Conduct app for CodeBuddies is running.',
+    paragraph: 'Follow the instructions in the README on GitHub to clone/configure this Slack App & your environment variables.'
+  });
 });
+
+app.get('/resources', (req, res) => {
+  const resourcesByLang = groupByArray(resourceData, 'language');
+  const groupedResources = resourcesByLang.map( (lang) => {
+    lang.values = groupByArray(lang.values, 'level');
+    return lang;
+  });
+  res.render('resources/index', { title: 'Greetbot Resources', groupedResources: groupedResources });
+});
+
+app.get('/resources/:name', (req, res) => {
+  const resource = resourceData.filter(resource => {
+    return resource.name == req.params.name;
+  })[0];
+  const title = resource ? resource.name : "New resource"
+  res.render('resources/show', { title: title, resource: resource });
+});
+
+app.post('/resources/:name', (req, res) => {
+  const resource = req.body.resource;
+  const ymltext = YAML.stringify(resource, 2);
+  fs.writeFile(path.resolve(`${__dirname}`,'app','routes','data','slash','resources','messageAttachments',resource.language,resource.level, `${resource.name}.yml`), ymltext, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  })
+  res.redirect('/resources');
+})
 
 /*
  * Endpoint to receive events from Slack's Events API.
@@ -24,46 +65,28 @@ app.get('/', (req, res) => {
  *   - url_verification: Returns challenge token sent when present.
  *   - event_callback: Confirm verification token & handle `team_join` event.
  */
-app.post('/events', (req, res) => {
-  switch (req.body.type) {
-    case 'url_verification': {
-      // verify Events API endpoint by returning challenge if present
-      res.send({ challenge: req.body.challenge });
-      break;
-    }
-    case 'event_callback': {
-      if (req.body.token === process.env.SLACK_VERIFICATION_TOKEN) {
-        const event = req.body.event;
+app.post('/events', (req, res) => { initalEvent.eventWelcome(req, res); });
 
-        // `team_join` is fired whenever a new user (incl. a bot) joins the team
-        // check if `event.is_restricted == true` to limit to guest accounts
-        if (event.type === 'team_join' && !event.is_bot) {
-          const { team_id, id } = event.user;
-          onboard.initialMessage(team_id, id);
-        }
-        res.sendStatus(200);
-      } else { res.sendStatus(500); }
-      break;
-    }
-    default: { res.sendStatus(500); }
-  }
-});
+// Endpoints to receive various slash commands from Slack's API.
+// Handles:
+//   - A given `slash` command is fired whenever a user evokes the "slash ---"
+//     in a channel.
+//   - Each function attempts to confirm a verification token & then executes
+//     various commmand scenarios.
+//   - Command extentions for each slash command can be added via case
+//     statements in the various command files.
+app.post('/welcome', (req, res) => { slashWelcome.welcome(req, res); });
+app.post('/resources', (req, res) => { slashResources.resources(req, res); });
 
-/*
- * Endpoint to receive events from interactive message on Slack. Checks the
- * verification token before continuing.
- */
+// Endpoint to receive events from interactive welcome message on Slack.
+// Checks the verification token before continuing.
 app.post('/interactive-message', (req, res) => {
-  const { token, user, team } = JSON.parse(req.body.payload);
-  if (token === process.env.SLACK_VERIFICATION_TOKEN) {
-    // simplest case with only a single button in the application
-    // check `callback_id` and `value` if handling multiple buttons
-    onboard.accept(user.id, team.id);
-    res.send({ text: '_*Thank you!*_\n\n\nWe\'ll put this here so you don\'t forget:\n\n\n:smile:  Don\'t be shy! Introduce yourself in <https://codebuddies.slack.com/archives/C04AQ6GH4|#introduce-yourself> &amp; welcome fellow new members. _The more we know about each other, the better we can connect &amp; collaborate._\n\n\n:point_left::skin-tone-5:  Browse all our public Slack channels by clicking on `CHANNELS` over in the sidebar.\n\n\n:eyeglasses:  Make sure to read our <https://codebuddies.slack.com/files/U0G92F4J0/F8VRAGD0S/CodeBuddies_Slack_Etiquette_for_General_Members|Slack Etiquette for General Members>.\n\n\n:computer:  Log into our <http://codebuddies.org|website> using your new CodeBuddies Slack account &amp; take a look around -- or join a hangout.\n\n\n:calendar: Try scheduling a hangout yourself! (_You don\’t need to be an expert to collaborate._) Simply click on the `Schedule a Hangout` button on the website &amp; fill in the information. All hangouts get automatically posted back to <https://codebuddies.slack.com/archives/C04AQ6GH0|#announcements>.\n\n\n:books:  Interested in going deep on topics like * Functional JS* or that special *Ruby* book or *Blockchain*? Start a <codebuddies.org/study-groups|StudyGroup>!  All study groups created on the website also get automatically posted back to <https://codebuddies.slack.com/archives/C04AQ6GH0|#announcements>.  Invite folks here on Slack to join in so that you can motivate each other to master your learning goal.\n\n\n:question:  If you have any questions about the community or the project or want to talk to an admin, feel free to ask about it in <https://codebuddies.slack.com/archives/C04BRN86J|#codebuddies-meta>. It\'s where discussions related to our community happen.\n\n\n*Some Quick Links:*\n\n<http://codebuddies.org|CodeBuddies Website>\n<http://codebuddies.org/faq|CodeBuddies FAQ>\n<https://github.com/codebuddiesdotorg/codebuddies|CodeBuddies on GitHub>\n<https://www.facebook.com/groups/TOPSTUDYGROUP/|CodeBuddies on Facebook>\n<http://twitter.com/codebuddiesmeet|CodeBuddies on Twitter>\n\n\n_Happy Learning!_ :wave::skin-tone-5:'
-    });
-  } else { res.sendStatus(500); }
+  initalResponse.welcomeResponse(req, res);
 });
+
 
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port ${process.env.PORT}!`);
 });
+
+module.exports = app;
