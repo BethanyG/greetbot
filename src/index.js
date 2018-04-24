@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const initalEvent = require('routes/endpoints/events/initial');
-const slashWelcome = require('routes/endpoints/slash/welcome/welcome');
 const initalResponse = require('routes/data/interactive/initialResponse');
 
 const app = express();
@@ -37,16 +36,6 @@ app.use(router);
  *   - event_callback: Confirm verification token & handle `team_join` event.
  */
 app.post('/events', (req, res) => { initalEvent.eventWelcome(req, res); });
-
-// Endpoints to receive various slash commands from Slack's API.
-// Handles:
-//   - A given `slash` command is fired whenever a user evokes the "slash ---"
-//     in a channel.
-//   - Each function attempts to confirm a verification token & then executes
-//     various commmand scenarios.
-//   - Command extentions for each slash command can be added via case
-//     statements in the various command files.
-app.post('/welcome', (req, res) => { slashWelcome.welcome(req, res); });
 
 // Endpoint to receive events from interactive welcome message on Slack.
 // Checks the verification token before continuing.

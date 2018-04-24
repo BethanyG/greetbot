@@ -3,6 +3,15 @@ const router = express.Router();
 const path = require('path');
 
 const resourcesController = require(path.join(__dirname, '..', 'controllers', 'resources'));
+const welcomeController = require(path.join(__dirname, '..', 'controllers', 'welcome'));
+
+// Notes on Slack endpoint commands:
+//   - A given `slash` command is fired whenever a user evokes the "slash ---"
+//     in a channel.
+//   - Each function attempts to confirm a verification token & then executes
+//     various commmand scenarios.
+//   - Command extentions for each slash command can be added via case
+//     statements in the various command files.
 
 // Assign all methods for /resources route
 router.route('/resources')
@@ -18,5 +27,11 @@ router.route('/resources/:name')
   .get(resourcesController.getResource)
   // Saves any changes to the resource in development
   .post(resourcesController.updateResource);
+
+
+// Assign all methods for /welcome route
+router.route('/welcome')
+  // The Slack endpoint command
+  .post(welcomeController.postWelcome);
 
 module.exports = { router };
