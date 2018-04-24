@@ -17,6 +17,6 @@ router.route('/resources/:name')
   // Shows the current route fields
   .get(resourcesController.getResource)
   // Saves any changes to the resource in development
-  // .put(resourcesController.updateResource);
+  .post(resourcesController.updateResource);
 
 module.exports = { router };
