@@ -8,10 +8,7 @@ const path = require('path');
 
 const initalEvent = require('routes/endpoints/events/initial');
 const slashWelcome = require('routes/endpoints/slash/welcome/welcome');
-const slashResources = require('routes/endpoints/slash/resources/resources');
 const initalResponse = require('routes/data/interactive/initialResponse');
-// const resourceData = require('util/ymlLoader').messageAttachments;
-const groupByArray = require('util/groupBy').groupByArray;
 
 const app = express();
 const router = require(path.join(__dirname, 'config', 'routes')).router;
