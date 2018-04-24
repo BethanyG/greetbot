@@ -5,6 +5,7 @@ const path = require('path');
 const resourcesController = require(path.join(__dirname, '..', 'controllers', 'resources'));
 const welcomeController = require(path.join(__dirname, '..', 'controllers', 'welcome'));
 const eventsController = require(path.join(__dirname, '..', 'controllers', 'events'));
+const interactiveController = require(path.join(__dirname, '..', 'controllers', 'interactive'));
 
 // Notes on Slack endpoint commands:
 //   - A given `slash` command is fired whenever a user evokes the "slash ---"
@@ -44,5 +45,10 @@ router.route('/welcome')
 router.route('/events')
   // The Slack endpoint event
   .post(eventsController.postEvent);
+
+// Assign all methods for /interactive-message route
+router.route('/interactive-message')
+  // The Slack endpoint event
+  .post(interactiveController.postResponse);
 
 module.exports = { router };

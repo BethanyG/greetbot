@@ -6,11 +6,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const initalResponse = require('routes/data/interactive/initialResponse');
-
+// Set up app and router
 const app = express();
 const router = require(path.join(__dirname, 'config', 'routes')).router;
 
+// Set up views
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -26,15 +26,8 @@ app.get('/', (req, res) => {
   });
 });
 
+// Use defined routes
 app.use(router);
-
-
-// Endpoint to receive events from interactive welcome message on Slack.
-// Checks the verification token before continuing.
-app.post('/interactive-message', (req, res) => {
-  initalResponse.welcomeResponse(req, res);
-});
-
 
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port ${process.env.PORT}!`);
