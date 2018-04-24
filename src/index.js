@@ -70,7 +70,7 @@ app.post('/events', (req, res) => { initalEvent.eventWelcome(req, res); });
 //   - Command extentions for each slash command can be added via case
 //     statements in the various command files.
 app.post('/welcome', (req, res) => { slashWelcome.welcome(req, res); });
-app.post('/resources', (req, res) => { slashResources.resources(req, res); });
+// app.post('/resources', (req, res) => { slashResources.resources(req, res); });
 
 // Endpoint to receive events from interactive welcome message on Slack.
 // Checks the verification token before continuing.

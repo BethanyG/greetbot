@@ -6,5 +6,6 @@ const resourcesController = require(path.join(__dirname, '..', 'controllers', 'r
 
 router.route('/resources')
   .get(resourcesController.getAll)
+  .post(resourcesController.postResources);
 
 module.exports = { router };
