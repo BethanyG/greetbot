@@ -15,6 +15,32 @@ const getAll = (req, res) => {
 
 const postResources = (req, res) => {
   slashResources.resources(req, res);
-}
+};
 
-module.exports = { getAll, postResources };
+const getResource = (req, res) => {
+  const resource = resourceData.filter(resource => {
+    return resource.name = req.params.name;
+  })[0];
+  res.render('resources/show', { title: resource.name, resource: resource });
+};
+
+module.exports = { getAll, postResources, getResource };
+// app.get('/resources/:name', (req, res) => {
+//   const resource = resourceData.filter(resource => {
+//     return resource.name == req.params.name;
+//   })[0];
+//   const title = resource ? resource.name : "New resource"
+//   res.render('resources/show', { title: title, resource: resource });
+// });
+
+// app.post('/resources/:name', (req, res) => {
+//   const resource = req.body.resource;
+//   const ymltext = YAML.stringify(resource, 2);
+//   fs.writeFile(path.resolve(`${__dirname}`,'app','routes','data','slash','resources','messageAttachments',resource.language,resource.level, `${resource.name}.yml`), ymltext, (err) => {
+//     if (err) {
+//       console.log(err);
+//     }
+//   })
+//   res.redirect('/resources');
+// })
+

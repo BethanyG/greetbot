@@ -34,25 +34,6 @@ app.get('/', (req, res) => {
 
 app.use(router);
 
-app.get('/resources/:name', (req, res) => {
-  const resource = resourceData.filter(resource => {
-    return resource.name == req.params.name;
-  })[0];
-  const title = resource ? resource.name : "New resource"
-  res.render('resources/show', { title: title, resource: resource });
-});
-
-app.post('/resources/:name', (req, res) => {
-  const resource = req.body.resource;
-  const ymltext = YAML.stringify(resource, 2);
-  fs.writeFile(path.resolve(`${__dirname}`,'app','routes','data','slash','resources','messageAttachments',resource.language,resource.level, `${resource.name}.yml`), ymltext, (err) => {
-    if (err) {
-      console.log(err);
-    }
-  })
-  res.redirect('/resources');
-})
-
 /*
  * Endpoint to receive events from Slack's Events API.
  * Handles:
@@ -70,7 +51,6 @@ app.post('/events', (req, res) => { initalEvent.eventWelcome(req, res); });
 //   - Command extentions for each slash command can be added via case
 //     statements in the various command files.
 app.post('/welcome', (req, res) => { slashWelcome.welcome(req, res); });
-// app.post('/resources', (req, res) => { slashResources.resources(req, res); });
 
 // Endpoint to receive events from interactive welcome message on Slack.
 // Checks the verification token before continuing.
