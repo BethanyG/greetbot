@@ -4,6 +4,7 @@ const path = require('path');
 
 const resourcesController = require(path.join(__dirname, '..', 'controllers', 'resources'));
 const welcomeController = require(path.join(__dirname, '..', 'controllers', 'welcome'));
+const eventsController = require(path.join(__dirname, '..', 'controllers', 'events'));
 
 // Notes on Slack endpoint commands:
 //   - A given `slash` command is fired whenever a user evokes the "slash ---"
@@ -12,6 +13,11 @@ const welcomeController = require(path.join(__dirname, '..', 'controllers', 'wel
 //     various commmand scenarios.
 //   - Command extentions for each slash command can be added via case
 //     statements in the various command files.
+//
+// Notes on Slack Events API
+//   - url_verification: Returns challenge token sent when present.
+//   - event_callback: Confirm verification token & handle `team_join` event.
+
 
 // Assign all methods for /resources route
 router.route('/resources')
@@ -33,5 +39,10 @@ router.route('/resources/:name')
 router.route('/welcome')
   // The Slack endpoint command
   .post(welcomeController.postWelcome);
+
+// Assign all methods for /events route
+router.route('/events')
+  // The Slack endpoint event
+  .post(eventsController.postEvent);
 
 module.exports = { router };

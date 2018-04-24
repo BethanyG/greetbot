@@ -6,7 +6,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const initalEvent = require('routes/endpoints/events/initial');
 const initalResponse = require('routes/data/interactive/initialResponse');
 
 const app = express();
@@ -29,13 +28,6 @@ app.get('/', (req, res) => {
 
 app.use(router);
 
-/*
- * Endpoint to receive events from Slack's Events API.
- * Handles:
- *   - url_verification: Returns challenge token sent when present.
- *   - event_callback: Confirm verification token & handle `team_join` event.
- */
-app.post('/events', (req, res) => { initalEvent.eventWelcome(req, res); });
 
 // Endpoint to receive events from interactive welcome message on Slack.
 // Checks the verification token before continuing.
