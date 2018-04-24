@@ -15,6 +15,7 @@ const resourceData = require('util/ymlLoader').messageAttachments;
 const groupByArray = require('util/groupBy').groupByArray;
 
 const app = express();
+const router = require(path.join(__dirname, 'config', 'routes')).router;
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -31,14 +32,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/resources', (req, res) => {
-  const resourcesByLang = groupByArray(resourceData, 'language');
-  const groupedResources = resourcesByLang.map( (lang) => {
-    lang.values = groupByArray(lang.values, 'level');
-    return lang;
-  });
-  res.render('resources/index', { title: 'Greetbot Resources', groupedResources: groupedResources });
-});
+app.use(router);
 
 app.get('/resources/:name', (req, res) => {
   const resource = resourceData.filter(resource => {
