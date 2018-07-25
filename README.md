@@ -1,41 +1,38 @@
-# CodeBuddies Slack Application
+# greetbot
+greetbot is a Slack app built with [ExpressJS](https://expressjs.com/) to be used with the [Codebuddies](https://www.codebuddies.org) open Slack community. greetbot helps us welcome and onboard new members and provide valuable coding resources.
 
-Adapted from https://glitch.com/~slack-terms-of-service-blueprint.
+## Contributing
+### Code of Conduct
+This is an open source project and we welcome all developers of all skill levels. We encourage all contributors to create Issues, submit Pull Requests, and review each other's code. As such, we expect people to be open for discussion and feedback. If you want to provide feedback or comment, please make sure that your comments are constructive.
 
-CodeBuddies Slack app that presents an Welcome message when a new user joins the Slack Team.
+**TL;DR:** Be nice, we are all here to learn together.
 
-The user can accept our Code of Conduct using message buttons. If a user has been presented with the Code before & they haven't accepted, a background job can send them a reminder DM after a specific period of time. Eventually you can use the SCIM API to disable the user's account.
+### Development
+Development contribution requires that you have your own Slack workspace as your sandbox for local development purposes. For instructions on how to make your own, see Slack's [tutorial](https://get.slack.help/hc/en-us/articles/206845317-Create-a-Slack-workspace).
 
-Additionally, the same welcome message can be sent as a `/welcome` command.
+#### Getting Started
+1. Install dependencies with NPM
+```bash
+  npm install
+```
 
-Other (upcoming) functionality will include a `/resources` command to send resource links to users, & automatic channel welcomes.
+2. Create an `.env` file by following the same structure as `.env.example`. Change the `DEV_SUBDOMAIN` variable to your name without spaces. For example, if your name is Jane Fonda, then the `DEV_SUBDOMAIN` value should be `janefonda`.
 
-## Setup for Running with your Own Slack Team
+3. Run Development mode
+```bash
+  npm run start:dev
+```
 
-#### Create a Slack app
+#### Installing greetbot in your sandbox workspace
+We have created a guide on how to set up your local version of greetbot in your Slack workspace. Read it [here](https://github.com/codebuddies/greetbot/wiki/Setup-Greetbot-in-your-Slack-Workspace).
 
-1. Create an app at api.slack.com/apps
-1. Navigate to the Bot Users page and add a bot user
-1. Navigate to the Install App page and install the app
-1. Copy the `xoxb-` token after the installation process is complete
+#### Putting it all together :tada: 
+Now that you have followed the tutorials and guides linked above to a T (right??), greetbot should work in your slack workspace. Try sending a slash command by typing `/welcome test`. greetbot should send you private message with a welcome message.
 
-#### Run locally
-1. Get the code
-    * Either clone this repo and run `npm install`, or set it up on Glitch.com
-1. Set the following environment variables to `.env` (see `.env.sample`):
-    * `SLACK_TOKEN`: Your app's `xoxb-` token (available on the Install App page)
-    * `SLACK_VERIFICATION_TOKEN`: Your app's Verification Token (available on the Basic Information page)
-    * `PORT`: The port that you want to run the web server on
-1. If you're running the app locally:
-    1. Start the app (`npm start`)
-    1. In another windown, start ngrok on the same port as your webserver (`ngrok http $PORT`)
+### Feature Requests / Ideas / Issues
+For bugs or other issues, feel free to file an [Issue](https://github.com/codebuddies/greetbot/issues).
 
-#### Enable the Events API
-1. Go back to the app settings and click on Events Subscriptions
-1. Set the Request URL to your ngrok or Glitch URL + /events
-1. On the same page, subscribe to the `team_join` team events
+For ideas, join us for a discussion at the Codebuddies Slack channel, `#cb-code`. You can get an invite to Codebuddies [here](https://codebuddiesmeet.herokuapp.com/).
 
-#### Enable Interactive Messages
-
-1. In the app settings, click on Interactive Messages
-1. Set the Request URL to your ngrok or Glitch URL + /interactive-message
+## License
+MIT Licensed, see [LICENSE](https://github.com/codebuddies/greetbot/blob/master/LICENSE) for details.
