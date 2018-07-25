@@ -1,0 +1,10 @@
+resource-number: 1
+language: 'python'
+level: 'beginner'
+media-cost: $0
+media-cost-desc: "FREE"
+media-type: "tutorial"
+media-icon: ":link:"
+media-link: "<http://thepythonguru.com|The Python Guru Tutorials>"
+media-desc: "_A tutorial that focuses on beginner programmers. It covers many Python concepts in depth & also teaches some more advanced constructs like lambda expressions & regular expressions. It finishes off with 'How to access MySQL db using Python'._"
+community-rating: ":heavy_plus:"

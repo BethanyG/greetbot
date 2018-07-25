@@ -1,0 +1,10 @@
+resource-number: 3
+language: 'python'
+level: 'beginner'
+media-cost: $0
+media-cost-desc: "FREE"
+media-type: "video"
+media-icon: ":cinema:"
+media-link: "<https://www.youtube.com/channel/UCRjTEkDLPREZNlREZMlotMQ|Automate the Boring Stuff w/Python Videos>"
+media-desc: "*Al Sweigart* _Video class version of his excellent book.  Al is an accessible & cheerful companion on the Python journey & gives practical & effective advice to the newbie programmer._  His book is available free online at <https://automatetheboringstuff.com|AutomatetheBoringStuff(dot)com>."
+community-rating: ":heavy_plus:"

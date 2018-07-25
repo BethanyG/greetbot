@@ -1,0 +1,8 @@
+#!/bin/bash
+# A list of bash aliases for the glitch console.
+# To use, run `source glitch-bash-alias`
+
+alias gb="git branch";
+alias gco="git checkout";
+alias gst="git status";
+alias gcmsg="git commit -m";

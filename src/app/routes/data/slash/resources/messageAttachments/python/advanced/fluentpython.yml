@@ -1,0 +1,10 @@
+resource-number: 3
+language: 'python'
+level: 'advanced'
+media-cost: $0
+media-cost-desc: "FREE"
+media-type: "book"
+media-icon: ":books:"
+media-link: "<http://shop.oreilly.com/product/0636920032519.do|Fluent Python>"
+media-desc: "(Free on Safari with a 10-day trial) *Luciano Ramalho* _Write effective, idiomatic Python code by leveraging its best & possibly most neglected—features. It gives hands-on demonstrations of core Python features & libraries & shows how to make your code shorter, faster, & more readable. Many experienced programmers try to bend Python to fit patterns they learned from other languages so they never discover language features outside of their experience. With this book, you'll *thoroughly* learn Python3._"
+community-rating: ":heavy_plus:"

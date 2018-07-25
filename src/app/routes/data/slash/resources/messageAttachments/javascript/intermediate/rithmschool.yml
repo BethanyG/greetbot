@@ -1,0 +1,10 @@
+resource-number: 4
+language: 'javascript'
+level: 'intermediate'
+media-cost: "$0"
+media-cost-desc: "FREE"
+media-type: "class"
+media-icon: ":school_satchel:"
+media-link: "<https://www.rithmschool.com/courses/intermediate-javascript|Rithm School Intermediate JS>"
+media-desc: "_Rithm School is a Bootcamp Located in San Francisco._"
+community-rating: ":heavy_plus:"

@@ -1,0 +1,47 @@
+<form method="POST" action="/templates/bodies/<%= bodyTemplate.name %>">
+	<div class="form-group">
+		<label for="bodyTemplateName">File Name</label>
+		<input type="text" class="form-control edit-form" id="bodyTemplateName" name="bodyTemplate[name]" value="<%= bodyTemplate ? bodyTemplate["name"] : '' %>" />
+	</div>
+	<div class="form-group">
+		<label for="bodyTemplateSidebarColor">Sidebar Color</label>
+		<input type="text" class="form-control edit-form" id="bodyTemplateSidebarColor" name="bodyTemplate[sidebar-color]" value="<%= bodyTemplate ? bodyTemplate["sidebar-color"] : '' %>" />
+	</div>
+	<div class="form-group">
+		<label for="bodyTemplateLanguage">Language</label>
+		<input type="text" class="form-control edit-form" id="bodyTemplateLanguage" name="bodyTemplate[language]" value="<%= bodyTemplate ? bodyTemplate["language"] : '' %>" />
+	</div>
+	<div class="form-group">
+		<label for="bodyTemplateLevel">Level</label>
+		<input type="text" class="form-control edit-form" id="bodyTemplateLevel" name="bodyTemplate[level]" value="<%= bodyTemplate ? bodyTemplate["level"] : '' %>" />
+	</div>
+	<div class="form-group">
+		<label for="bodyTemplateLevelIcon">Level Icon</label>
+		<input type="text" class="form-control edit-form" id="bodyTemplateLevelIcon" name="bodyTemplate[level-icon]" value="<%= bodyTemplate ? bodyTemplate["level-icon"] : '' %>" />
+	</div>
+	<div class="form-group">
+		<label for="bodyTemplateLanguageIcon">Language Icon</label>
+		<input type="text" class="form-control edit-form" id="bodyTemplateLanguageIcon" name="bodyTemplate[language-icon]" value="<%= bodyTemplate ? bodyTemplate["language-icon"] : '' %>" />
+	</div>
+	<div class="form-group">
+		<label for="bodyTemplateLanguageDesc">Language Description</label>
+		<input type="text" class="form-control edit-form" id="bodyTemplateLanguageDesc" name="bodyTemplate[language-desc]" value="<%= bodyTemplate ? bodyTemplate["language-desc"] : '' %>" />
+	</div>
+	<div class="form-group">
+		<label for="bodyTemplateLanguageBlurb">Language Blurb</label>
+		<textarea type="text" class="form-control edit-form" id="bodyTemplateLanguageBlurb" name="bodyTemplate[language-blurb]" rows="8"><%= bodyTemplate ? bodyTemplate["language-blurb"] : '' %></textarea>
+	</div>
+	<div class="form-group">
+		<label for="bodyTemplateHelpLink">Help Link</label>
+		<textarea type="text" class="form-control edit-form" id="bodyTemplateHelpLink" name="bodyTemplate[help_link]" rows="8"><%= bodyTemplate ? bodyTemplate["help_link"] : '' %></textarea>
+	</div>
+	<div class="form-group">
+		<label for="bodyTemplateMoreQuestion">More Questions</label>
+		<textarea type="text" class="form-control edit-form" id="bodyTemplateMoreQuestion" name="bodyTemplate[more-questions]" rows="8"><%= bodyTemplate ? bodyTemplate["more-questions"] : '' %></textarea>
+	</div>
+	<div class="form-group">
+		<label for="bodyTemplateMaintainer">Maintainer</label>
+		<textarea type="text" class="form-control edit-form" id="bodyTemplateMaintainer" name="bodyTemplate[maintainer]" rows="8"><%= bodyTemplate ? bodyTemplate["maintainer"] : '' %></textarea>
+	</div>
+	<button type="submit" class="btn btn-primary">Submit changes</button>
+</form>
