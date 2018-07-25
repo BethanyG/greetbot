@@ -1,0 +1,10 @@
+resource-number: 4
+language: 'python'
+level: 'intermediate'
+media-cost: $0
+media-cost-desc: "FREE"
+media-type: "video"
+media-icon: ":cinema:"
+media-link: "<https://www.youtube.com/watch?v=lyDLAutA88s|Built in Super Heroes>"
+media-desc: "*David Beazley*  _One of the best live-coders ever & a *very* engaging speaker. He's been using Python for 20 years, & knows it inside & out. In this PyData Chicago 2016 Keynote, he performs live data cleaning & data science using *only the tools available in Python's core library*.  Amazing & humbling & very funny.  You'll never look at Chicago food ratings the same way again._"
+community-rating: ":heavy_plus:"

@@ -1,0 +1,10 @@
+resource-number: 2
+language: 'javascript'
+level: 'intermediate'
+media-cost: "$31"
+media-cost-desc: "PAID"
+media-type: "book"
+media-icon: ":books:"
+media-link: "<https://www.amazon.com/Eloquent-JavaScript-Modern-Introduction-Programming|Eloquent JavaScript>"
+media-desc: "Amazon(dot)com. _Eloquent JavaScript, 2nd Edition dives deep into the JavaScript language to show you how to write beautiful, effective code. Author Marijn Haverbeke immerses you in example code from the start, while exercises and full-chapter projects give you hands-on experience with writing your own programs. As you build projects such as an artificial life simulation, a simple programming language, and a paint program._"
+community-rating: ":heavy_plus:"

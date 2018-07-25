@@ -1,0 +1,10 @@
+resource-number: 2
+language: 'python'
+level: 'beginner'
+media-cost: $0
+media-cost-desc: "FREE"
+media-type: "tutorial"
+media-icon: ":link:"
+media-link: "<https://docs.python.org/3/tutorial/index.html|The Offical Python Tutorial>"
+media-desc: "_Yes, it's documentation - but it's *good* documentation.  Written especially for you: the beginner by the devlopers of the core Python language.  Not a bad place to start._"
+community-rating: ":heavy_plus:"
