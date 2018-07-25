@@ -1,16 +1,3 @@
-# Please contribute to this repository through CodeBuddies (https://github.com/codebuddies):
-1. Ask for an invite to our test Slack team & to our Glitch.com project account if you'd like to test/work in our staging environment.
-2. Clone this repo (specifically the **development** branch)
-2. Make a branch off **development** for your changes.
-3. Push your branch back to Github.
-4. Pull that branch to Glitch.com for viewing with our Test Slack team.
-5. As an alternative, use **NGROK (https://ngrok.com/)** with your own Slack Team for development. (see the directions below, in addition to https://api.slack.com/slack-apps for how to set up and install a custom slack app for your team account).
-5. Make your changes & then save/push those changes back to Github on your branch.
-6. Open a pull request to merge your proposed changes back into **devlopment**.  Please note any feature or bug numbers addressed & any other important notes in your pull request comments.
-
-**Note: do not make changes or make PRs to the `master` branch.**
-
-
 # CodeBuddies Slack Application
 
 Adapted from https://glitch.com/~slack-terms-of-service-blueprint.
