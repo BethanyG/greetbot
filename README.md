@@ -1,7 +1,9 @@
 # greetbot
 greetbot is a Slack app built with [ExpressJS](https://expressjs.com/) to be used with the [Codebuddies](https://www.codebuddies.org) open Slack community. greetbot helps us welcome and onboard new members and provide valuable coding resources.
 
-# Please contribute to this repository through CodeBuddies (https://github.com/codebuddies):
+________________________________________________________________________________
+
+## Please contribute to this repository through CodeBuddies (https://github.com/codebuddies):
 1. Ask for an invite to our test Slack team & to our Glitch.com project account if you'd like to test/work in our staging environment.
 2. Clone the repo (specifically the **development** branch)
 2. Make a branch off **development** for your changes.
